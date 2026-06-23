@@ -8,7 +8,29 @@
 <body>
     <h1>I love ricon phantom! and I love food!</h1>
     <p>GIT確認用</p>
-    <p>写真を取って保存</p> <!-- pullできた? -->
+    <p>写真を取って保存</p>
+    
+
+<form id="uploadForm">
+  <label for="cameraInput">写真を撮影：</label>
+  <input type="file" id="cameraInput" accept="image/*" capture="environment" required>
+  
+  <br><br>
+
+  <label for="weightInput">食材の重さ (g)：</label>
+  <input type="number" id="weightInput" min="0" placeholder="例: 150" required>
+
+  <br><br>
+
+  <label for="expiryInput">賞味期限 (日数)：</label>
+  <input type="number" id="expiryInput" min="0" placeholder="例: 3" required>
+
+  <br><br>
+
+  <button type="submit">送信する</button>
+</form>
+
+
 </body>
 <footer>
     <p>&copy; 2026 Foodsystem. All rights reserved.</p>
