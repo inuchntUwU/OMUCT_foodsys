@@ -1,6 +1,16 @@
-.upload-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.uploadform {
     margin-top: 20px;
+    color: #68d447;
+}
+.footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #ca3838;
+}
+.upload-section {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #4de050;
 }
