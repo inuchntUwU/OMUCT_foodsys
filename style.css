@@ -4,12 +4,87 @@
     color: #ca3838;
 }
 .upload-section {
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #6cff6e;
+    margin-top: 10px;
+    padding: 10px;
+    border: 10px solid #73b870;
+    border-radius: 25px;
+    background-color: #ffffff;
+    text-align: center;
 }
 .html {
     background-color: #95ffca;
+}
+.title {
+    text-align: center;
+    color: #fcfff9;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#video {
+  border: 1px solid black;
+  width: 320px;
+  height: 240px;
+}
+#photo {
+  border: 1px solid black;
+  width: 320px;
+  height: 240px;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: center;
+}
+
+#shoot,
+#recode-start,
+#recode-stop {
+  width: 100px;
+  margin: 5px auto;
+  border: solid 1px skyblue;
+  border-radius: 30px;
+  background-color: skyblue;
+}
+#shoot:hover,
+#recode-start:hover,
+#recode-stop:hover {
+  opacity: 0.7;
+}
+
+.hidd {
+  display: none;
+}
+
+#recode-stop {
+  animation: recodding 2s infinite;
+}
+
+#recode-stop {
+  animation: recodding 2s infinite;
+}
+
+p.ret-element {
+  margin-top: 0;
+}
+
+@keyframes recodding {
+  0% {
+    opacity: 1;
+    /* border: solid 1px skyblue;
+    background-color: skyblue; */
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (width <=1000px) {
+  .flex-row {
+    display: block;
+  }
 }

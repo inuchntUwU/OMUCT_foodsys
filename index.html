@@ -4,15 +4,26 @@
     <title>Foodsystem</title>
     <meta charset="UTF-8">
     <meta name="language" content="ja">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body class="body">
-    <h1>Foodsystem</h1>
+    <h1 class="title">Foodsystem</h1>
 <section class="upload-section">
   <h2>食材の情報を入力</h2>
   <p>写真を撮影して食材の重さと賞味期限を入力</p>
 <form id="uploadForm" class="uploadform">
-  <label for="cameraInput">写真を撮影：</label>
+
+  
+    <div class="flex-row">
+        <div class="camera">
+            <video id="video"></video>
+            <div id="shoot">撮影</div>
+        </div>
+        <img id="photo">
+    </div>
+
+
   <input type="file" id="cameraInput" accept="image/*" capture="environment" required>
   
   <br><br>
