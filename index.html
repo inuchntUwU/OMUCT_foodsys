@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class ="html">
+<html class="html">
 <head>
     <title>Foodsystem</title>
     <meta charset="UTF-8">
@@ -9,41 +9,45 @@
 </head>
 <body class="body">
     <h1 class="title">Foodsystem</h1>
-<section class="upload-section">
-  <h2>食材の情報を入力</h2>
-  <p>写真を撮影して食材の重さと賞味期限を入力</p>
-<form id="uploadForm" class="uploadform">
+    <section class="upload-section">
+        <h2>食材の情報を入力</h2>
+        <p>写真を撮影して食材の重さと賞味期限を入力</p>
+ 
 
-  
-    <div class="flex-row">
-        <div class="camera">
-            <video id="video"></video>
-            <div id="shoot">撮影</div>
-        </div>
-        <img id="photo">
-    </div>
+        <!-- サーバーへ送るデータの枠 -->
+        <form id="uploadForm" class="uploadform">
+ 
+            <div class="flex-row">
+                <div class="camera">
+                    <video id="video" autoplay playsinline></video>
+                    <div id="shoot">撮影</div>
+                </div>
+                <img id="photo" alt="撮影した写真">
+            </div>
+ 
+            <br>
+            <!-- 食材の名前、重さ、賞味期限の入力フォーム -->
+            <label for="foodNameInput">食材の名前：</label>
+            <input type="text" id="foodNameInput" placeholder="例: リンゴ" required>
+            
+            <br><br>
+ 
+            <label for="weightInput">食材の重さ (g)：</label>
+            <input type="number" id="weightInput" min="0" placeholder="例: 150" required>
+ 
+            <br><br>
+ 
+            <label for="expiryInput">賞味期限 (日数)：</label>
+            <input type="date" id="expiryInput" min="0" placeholder="例: 2026-8-31" required>
+ 
+            <br><br>
 
-
-  <input type="file" id="cameraInput" accept="image/*" capture="environment" required>
-  
-  <br><br>
-
-  <label for="weightInput">食材の重さ (g)：</label>
-  <input type="number" id="weightInput" min="0" placeholder="例: 150" required>
-
-  <br><br>
-
-  <label for="expiryInput">賞味期限 (日数)：</label>
-  <input type="number" id="expiryInput" min="0" placeholder="例: 3" required>
-
-  <br><br>
-
-  <button type="submit">送信する</button>
-</form>
-</section>
-
+            <button type="submit" id="submitBtn" disabled>送信する</button>
+        </form>
+    </section>
 </body>
 <footer class="footer">
     <p>&copy; 2026 Foodsystem. All rights reserved.</p>
 </footer>
+<script src="script.js"></script>
 </html>
