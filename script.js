@@ -75,12 +75,13 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
     formData.append('image', capturedBlob, 'photo.png'); // 撮影画像(png)
     formData.append('weight', parseInt(weightInput.value, 10));// 重量(g)
     formData.append('expiryDate', expiryInput.value);// 賞味期限(YYYY-MM-DD)
- 
+    formData.append('foodName', document.getElementById('foodNameInput').value); // 食品名
+
     try {
         // サーバーのAPIまち
         const response = await fetch('/api/upload-food', {
             method: 'POST',
-            body: formDatas
+            body: formData
         });
  
         if (response.ok) {
