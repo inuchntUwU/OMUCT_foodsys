@@ -79,7 +79,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
 
     try {
         // サーバーのAPIまち
-        const response = await fetch('/api/upload-food', {
+        const response = await fetch('http://localhost:3000/', {
             method: 'POST',
             body: formData
         });
