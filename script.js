@@ -72,11 +72,10 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
  
     // FormDataに画像と数値をセット
     const formData = new FormData();
-    formData.append('image', capturedBlob, 'photo.png'); // 撮影画像(png)
     formData.append('weight', parseInt(weightInput.value, 10));// 重量(g)
     formData.append('expiryDate', expiryInput.value);// 賞味期限(YYYY-MM-DD)
     formData.append('foodName', document.getElementById('foodNameInput').value); // 食品名
-
+    formData.append('image', capturedBlob, 'photo.png'); // 撮影画像(png)
     try {
         // サーバーのAPIまち
         const response = await fetch('http://localhost:3000/api/upload-food', {
