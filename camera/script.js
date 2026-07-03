@@ -78,7 +78,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
     formData.append('image', capturedBlob, 'photo.png'); // 撮影画像(png)
     try {
         // サーバーのAPIまち
-        const response = await fetch('https://food-system-backend-4vmg.onrender.com/', {
+        const response = await fetch('https://food-system-backend-4vmg.onrender.com/api/upload-food', {
             method: 'POST',
             body: formData
         });
