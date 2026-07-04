@@ -1,4 +1,54 @@
-.food-list{
-    padding: 20px;
-    background-color: red;
+/* 全体のリセットと背景色 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* 料理一覧セクション全体の余白調整 */
+.food-list {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.food-list h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* 料理を格子状（グリッド）に並べる設定 */
+.food-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* 将来JSで作られる「料理カード」の見た目 */
+.food-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.food-card:hover {
+    transform: translateY(-5px);
+}
+
+.food-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.food-card h3 {
+    margin: 15px;
+    font-size: 1.1rem;
 }
