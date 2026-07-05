@@ -1,3 +1,10 @@
+.title{
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+
 /* 全体のリセットと背景色 */
 body {
     margin: 0;
@@ -7,11 +14,15 @@ body {
     color: #333;
 }
 
-/* 料理一覧セクション全体の余白調整 */
+/* 料理一覧セクション全体 */
 .food-list {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
+    
+   margin-top: 10px;
+    padding: 10px;
+    border: 10px solid #73b870;
+    border-radius: 25px;
+    background-color: #ffffff;
+    text-align: center;
 }
 
 .food-list h1 {
@@ -34,8 +45,9 @@ body {
     background-color: #ffffff;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 6px 9px rgba(0,0,0,0.05);
     transition: transform 0.2s;
+    font-size: 9px;
 }
 
 .food-card:hover {
@@ -43,12 +55,25 @@ body {
 }
 
 .food-card img {
-    width: 100%;
-    height: 200px;
+    width: 80%;
+    height: 160px;
     object-fit: cover;
 }
 
 .food-card h3 {
     margin: 15px;
     font-size: 1.1rem;
+}
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 9px rgba(0,0,0,0.1);
 }
