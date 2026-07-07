@@ -7,7 +7,8 @@
 
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #233B6C; /* 食欲失わせる（？）色 */
+    background-color: #004080; /* 食欲失わせる（？）色 */
+    background: linear-gradient(135deg, #004080 0%, #d5eaff 100%);
     color: #333;
     display: flex;
     flex-direction: column;
