@@ -22,7 +22,6 @@ const dummyData = [
         description: "画像URLが壊れていたり、取得できなかった時の見た目テスト。"
     }
 ];
-
 // fetchの代わりに、このデータをそのまま画面に渡す
 dummyData.forEach(cardData => {
     createCardDOM(cardData);

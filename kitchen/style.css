@@ -1,5 +1,5 @@
 .title{
-    font-size: 2rem;
+    font-size: 4rem;
     font-weight: bold;
     text-align: center;
 }
@@ -17,12 +17,13 @@ body {
 /* 料理一覧セクション全体 */
 .food-list {
     
-   margin-top: 10px;
+   margin-top: 20px;
     padding: 10px;
     border: 10px solid #73b870;
     border-radius: 25px;
     background-color: #ffffff;
     text-align: center;
+
 }
 
 .food-list h1 {
