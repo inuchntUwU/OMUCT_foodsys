@@ -1,0 +1,80 @@
+.title{
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+/* 全体のリセットと背景色 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* 料理一覧セクション全体 */
+.food-list {
+    
+   margin-top: 20px;
+    padding: 10px;
+    border: 10px solid #73b870;
+    border-radius: 25px;
+    background-color: #ffffff;
+    text-align: center;
+
+}
+
+.food-list h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* 料理を格子状（グリッド）に並べる設定 */
+.food-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* 将来JSで作られる「料理カード」の見た目 */
+.food-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 9px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+    font-size: 9px;
+}
+
+.food-card:hover {
+    transform: translateY(-5px);
+}
+
+.food-card img {
+    width: 80%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.food-card h3 {
+    margin: 15px;
+    font-size: 1.1rem;
+}
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 9px rgba(0,0,0,0.1);
+}
