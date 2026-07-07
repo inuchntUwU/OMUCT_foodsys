@@ -1,92 +1,54 @@
-const cardContainer = document.getElementById('card-container');
-const fetchBtn = document.getElementById('fetch-btn');
+const foodContainer = document.getElementById('food-container');
+const BACKEND_URL = 'https://food-system-backend-4vmg.onrender.com';
 
-// テスト用のダミーデータ（fetchから返ってくる想定の形にする）
-const dummyData = [
-    {
-        id: "test-1",
-        imageUrl: "https://placedog.net/500/300", // テスト用画像
-        title: "普通のタイトル",
-        description: "これは通常のテキスト量です。"
-    },
-    {
-        id: "test-2",
-        imageUrl: "https://placedog.net/500/300",
-        title: "めちゃくちゃ長いタイトルのテスト！！！！！！！！！！！！！！！！！！！！！",
-        description: "文字が溢れてカードからはみ出さないか、レイアウトが崩れないかをチェックするための長い文章です。文字数制限が必要かどうかが分かります。"
-    },
-    {
-        id: "test-3",
-        imageUrl: "", // 画像が空っぽのパターン
-        title: "画像がない場合",
-        description: "画像URLが壊れていたり、取得できなかった時の見た目テスト。"
-    }
-];
-// fetchの代わりに、このデータをそのまま画面に渡す
-dummyData.forEach(cardData => {
-    createCardDOM(cardData);
-});
+// ページ読み込み時にバックエンドから食材一覧を取得する
+window.addEventListener('DOMContentLoaded', fetchFoodList);
 
-
-
-
-
-
-
-
-
-
-
-// 1. ページ読み込み時に、すでに保存されているカードがあれば表示する
-初期化();
-
-function 初期化() {
-    const savedCards = JSON.parse(localStorage.getItem('myCards')) || [];
-    savedCards.forEach(cardData => {
-        createCardDOM(cardData);
-    });
-}
-
-// 2. ボタンを押したらfetchしてデータを取得
-fetchBtn.addEventListener('click', async () => {
+async function fetchFoodList() {
     try {
-        // 例として擬似的なAPI（JSONPlaceholderなど）や犬画像APIを使う想定
-        const response = await fetch('https://dog.ceo/api/breeds/image/random');
-        const data = await response.json();
+        // バックエンドから食材一覧を取得（APIエンドポイントはバックエンドの仕様に合わせて /api/foods などに調整してください）
+        const response = await fetch(`https://food-system-backend-4vmg.onrender.com/api/get-foods`);
         
-        const cardData = {
-            id: Date.now(), // 削除や識別用のユニークなID
-            imageUrl: data.message, // APIから取得した画像URL
-            title: `カード ${new Date().toLocaleTimeString()}`,
-            description: 'fetchしてきたデータです。'
-        };
+        if (!response.ok) {
+            throw new Error('データの取得に失敗しました');
+        }
 
-        // 画面に追加
-        createCardDOM(cardData);
-        // localStorageに保存
-        saveCardToStorage(cardData);
+        const foods = await response.json();
+        
+        // コンテナを一旦空にする
+        foodContainer.innerHTML = '';
+
+        // 取得した食材データを1つずつループ処理して画面に流し込む
+        foods.forEach(food => {
+            createFoodCardDOM(food);
+        });
 
     } catch (error) {
-        console.error('データの取得に失敗しました:', error);
+        console.error('エラー:', error);
+        foodContainer.innerHTML = `<p style="color: red; text-align: center;">食材データの取得に失敗しました。</p>`;
     }
-});
-
-// 3. カードのHTML（DOM）を生成して画面に表示する関数
-function createCardDOM(data) {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-        <img src="${data.imageUrl}" alt="card image" style="width:100%; height:150px; object-fit:cover;">
-        <h3>${data.title}</h3>
-        <p>${data.description}</p>
-    `;
-    cardContainer.appendChild(card);
 }
 
-// 4. localStorageにデータを保存する関数
-function saveCardToStorage(newCard) {
-    const currentCards = JSON.parse(localStorage.getItem('myCards')) || [];
-    currentCards.push(newCard);
-    // localStorageは文字列しか保存できないので、JSON.stringifyする
-    localStorage.setItem('myCards', JSON.stringify(currentCards));
+// あなたのCSS（.food-card）の形にデータを流し込む関数
+function createFoodCardDOM(data) {
+    const li = document.createElement('li');
+    li.className = 'food-card';
+
+    // バックエンドから送られてくるプロパティ名（foodName, weight, expiryDate, imagePathなど）を当てはめます
+    // 画像URLが相対パスで返ってくる場合はBACKEND_URLと結合します
+    const imageUrl = data.imagePath ? (data.imagePath.startsWith('http') ? data.imagePath : `${BACKEND_URL}${data.imagePath}`) : 'https://placedog.net/500/300';
+    
+    // 賞味期限の日付を見やすく整形（YYYY-MM-DDなど）
+    const expiry = data.expiryDate ? data.expiryDate.split('T')[0] : '未設定';
+
+    li.innerHTML = `
+        <img src="${imageUrl}" alt="${data.foodName || '食材画像'}">
+        <h3>${data.foodName || '名前なし'}</h3>
+        <div style="padding: 0 15px 15px; text-align: left; font-size: 12px; color: #555;">
+            <p style="margin: 4px 0;">重さ: ${data.weight || 0} g</p>
+            <p style="margin: 4px 0; color: #ca3838; font-weight: bold;">賞味期限: ${expiry}</p>
+        </div>
+    `;
+
+    foodContainer.appendChild(li);
 }
