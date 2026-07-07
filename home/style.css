@@ -34,7 +34,7 @@ body {
     width: 100%;
     padding: 40px 20px;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* 柔らかい影 */
+    border: 10px solid #73b870;
     text-align: center;
     border: 1px solid #e2e8f0;
 }
