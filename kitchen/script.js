@@ -1,7 +1,6 @@
 const foodContainer = document.getElementById('food-container');
 const BACKEND_URL = 'https://food-system-backend-4vmg.onrender.com';
 
-
 let currentPage = 1; // 今何ページ目かを覚えておく変数
 const limit = 20;    // 1ページに表示したい件数
 
@@ -9,19 +8,19 @@ const limit = 20;    // 1ページに表示したい件数
 const dummyData = [
     {
         id: "test-1",
-        imageUrl: "https://placedog.net/500/300", // テスト用画像
+        image_path: "https://placedog.net/500/300", // テスト用画像
         title: "普通のタイトル",
         description: "これは通常のテキスト量です。"
     },
     {
         id: "test-2",
-        imageUrl: "https://placedog.net/500/300",
+        image_path: "https://placedog.net/500/300",
         title: "めちゃくちゃ長いタイトルのテスト！！！！！！！！！！！！！！！！！！！！！",
         description: "文字が溢れてカードからはみ出さないか、レイアウトが崩れないかをチェックするための長い文章です。文字数制限が必要かどうかが分かります。"
     },
     {
         id: "test-3",
-        imageUrl: "", // 画像が空っぽのパターン
+        image_path: "", // 画像が空っぽのパターン
         title: "画像がない場合",
         description: "画像URLが壊れていたり、取得できなかった時の見た目テスト。"
     }
@@ -91,8 +90,8 @@ function fetchAndDisplayFoods() {
             foodList.forEach(food => {
                 const cardHtml = `
                     <li class="food-card">
-                        <img src="${food.imageUrl}" loading="lazy" alt="${food.name}">
-                        <h3>${food.name}</h3>
+                        <img src="${food.image_path}" loading="lazy" alt="${food.food_name}">
+                        <h3>${food.food_name}</h3>
                     </li>
                 `;
                 foodContainer.innerHTML += cardHtml;
@@ -124,8 +123,8 @@ document.addEventListener('DOMContentLoaded', fetchAndDisplayFoods);
             // foodList.forEach(food => {
                 // container.innerHTML += `
                     // <li class="food-card">
-                        // <img src="${food.imageUrl}" loading="lazy">
-                        // <h3>${food.name}</h3>
+                        // <img src="${food.image_path}" loading="lazy">
+                        // <h3>${food.food_name}</h3>
                     // </li>
                 // `;
             // });
