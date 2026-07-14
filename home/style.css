@@ -93,6 +93,15 @@ body {
     transform: translateY(-2px);
 }
 
+/* リセットボタン */
+.home-buttons button#reset-button {
+    background-color: #e74c3c; /* 赤色 */
+}
+
+.home-buttons button#reset-button:hover {
+    background-color: #c0392b; /* 少し濃い赤色 */
+    transform: translateY(-2px); /* ふわっと浮く */
+}
 /* フッター */
 .footer {
     margin-top: auto;
