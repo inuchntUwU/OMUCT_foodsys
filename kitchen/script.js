@@ -1,6 +1,9 @@
 const cardContainer = document.getElementById('card-container');
 const fetchBtn = document.getElementById('fetch-btn');
 
+let currentPage = 1; // 今何ページ目かを覚えておく変数
+const limit = 20;    // 1ページに表示したい件数
+
 // テスト用のダミーデータ（fetchから返ってくる想定の形にする）
 const dummyData = [
     {
@@ -90,3 +93,74 @@ function saveCardToStorage(newCard) {
     // localStorageは文字列しか保存できないので、JSON.stringifyする
     localStorage.setItem('myCards', JSON.stringify(currentCards));
 }
+
+// 1. バックエンドのURL（データをくれる窓口）
+// ※ここを、バックエンド担当者が作った本物のURLに書き換えます
+const API_URL = 'https://food-system-backend-4vmg.onrender.com/api/get-foods'; 
+
+// 2. HTML側の料理を入れる箱（ulタグ）を取得しておく
+const foodContainer = document.getElementById('food-container');
+
+// 3. バックエンドにデータをリクエストして画面に表示する関数
+function fetchAndDisplayFoods() {
+    fetch(API_URL)
+        .then(response => {
+             //エラーチェック（データがちゃんと取れなかった場合）
+            if (!response.ok) {
+                throw new Error('データの取得に失敗しました');
+            }
+            return response.json(); // 届いたデータをJSONとして解析
+        })
+        .then(foodList => {
+            // 箱の中身を一度きれいに空にする
+            foodContainer.innerHTML = '';
+
+            // 届いたデータを最初から最後までループして、画面に追加していく
+            foodList.forEach(food => {
+                const cardHtml = `
+                    <li class="food-card">
+                        <img src="${food.imageUrl}" loading="lazy" alt="${food.name}">
+                        <h3>${food.name}</h3>
+                    </li>
+                `;
+                foodContainer.innerHTML += cardHtml;
+            });
+        })
+        .catch(error => {
+            console.error('エラーが発生しました:', error);
+            foodContainer.innerHTML = '<p class="error-message">データの読み込みに失敗しました。</p>';
+        });
+}
+
+// ページが読み込まれたら、自動的に上の関数を実行する
+document.addEventListener('DOMContentLoaded', fetchAndDisplayFoods);
+
+
+
+
+// function loadFoodPage(page) {
+    // URLの後ろにページ番号と件数をくっつけてバックエンドに要請する
+    // fetch(`https://xxxx.com/api/foods?page=${page}&limit=${limit}`)
+        // .then(response => response.json())
+        // .then(foodList => {
+            // 
+            // 一度古いリストを空っぽにする
+            // const container = document.getElementById('food-container');
+            // container.innerHTML = ""; 
+            // 
+            // 新しいページの20件だけを画面に表示する
+            // foodList.forEach(food => {
+                // container.innerHTML += `
+                    // <li class="food-card">
+                        // <img src="${food.imageUrl}" loading="lazy">
+                        // <h3>${food.name}</h3>
+                    // </li>
+                // `;
+            // });
+        // });
+// }
+
+// document.getElementById('next-button').addEventListener('click', () => {
+    // currentPage++;
+    // loadFoodPage(currentPage);
+// });
