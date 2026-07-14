@@ -93,6 +93,37 @@ body {
     transform: translateY(-2px);
 }
 
+/* リセットボタン（警告色のレッド） */
+.reset-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    color: white;
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.reset-button:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+.reset-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+.reset-button:disabled {
+    background-color: #e57368;
+    cursor: not-allowed;
+    transform: none;
+}
+
 /* フッター */
 .footer {
     margin-top: auto;
