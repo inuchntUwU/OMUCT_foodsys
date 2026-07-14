@@ -28,14 +28,14 @@ body {
     font-weight: 700;
 }
 
-/* メインの白いカード型の枠 */
+/* 選択肢の背景 */
 .upload-section {
     background-color: #ffffff;
     max-width: 600px;
     width: 100%;
     padding: 40px 20px;
     border-radius: 20px;
-    border: 10px solid #00008b;
+    border: 10px solid #00008b; /*枠*/
     text-align: center;
 }
 
