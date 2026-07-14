@@ -121,3 +121,10 @@ body {
     overflow: hidden;
     box-shadow: 0 6px 9px rgba(0,0,0,0.1);
 }
+.footer {
+    margin-top: auto;
+    padding-top: 40px;
+    font-size: 1rem;
+    color: #ffffff;
+    text-align: center;
+}
