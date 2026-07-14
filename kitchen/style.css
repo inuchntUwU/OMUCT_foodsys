@@ -8,22 +8,32 @@
 /* 全体のリセットと背景色 */
 body {
     margin: 0;
-    padding: 0;
+    padding: 20px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #f8f9fa;
+    background-color: #004080;
+    background: linear-gradient(135deg, #004080 0%, #80bfff 100%);
     color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    color: #fcfff9;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* 料理一覧セクション全体 */
 .food-list {
-    
-   margin-top: 20px;
+    margin-top: 20px;
     padding: 10px;
-    border: 10px solid #73b870;
+    border: 10px solid #00008b;
     border-radius: 25px;
     background-color: #ffffff;
     text-align: center;
-
+    max-width: 900px;
+    width: 100%;
 }
 
 .food-list h1 {
