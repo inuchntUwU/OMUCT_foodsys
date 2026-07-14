@@ -1,8 +1,39 @@
 const foodContainer = document.getElementById('food-container');
 const BACKEND_URL = 'https://food-system-backend-4vmg.onrender.com';
 
+<<<<<<< HEAD
+let currentPage = 1; // 今何ページ目かを覚えておく変数
+const limit = 20;    // 1ページに表示したい件数
+
+// テスト用のダミーデータ（fetchから返ってくる想定の形にする）
+const dummyData = [
+    {
+        id: "test-1",
+        imageUrl: "https://placedog.net/500/300", // テスト用画像
+        title: "普通のタイトル",
+        description: "これは通常のテキスト量です。"
+    },
+    {
+        id: "test-2",
+        imageUrl: "https://placedog.net/500/300",
+        title: "めちゃくちゃ長いタイトルのテスト！！！！！！！！！！！！！！！！！！！！！",
+        description: "文字が溢れてカードからはみ出さないか、レイアウトが崩れないかをチェックするための長い文章です。文字数制限が必要かどうかが分かります。"
+    },
+    {
+        id: "test-3",
+        imageUrl: "", // 画像が空っぽのパターン
+        title: "画像がない場合",
+        description: "画像URLが壊れていたり、取得できなかった時の見た目テスト。"
+    }
+];
+// fetchの代わりに、このデータをそのまま画面に渡す
+dummyData.forEach(cardData => {
+    createCardDOM(cardData);
+});
+=======
 // ページ読み込み時にバックエンドから食材一覧を取得する
 window.addEventListener('DOMContentLoaded', fetchFoodList);
+>>>>>>> 916eaa2bf8daf540c214a3ba9c353d8f47996481
 
 async function fetchFoodList() {
     try {
@@ -29,26 +60,82 @@ async function fetchFoodList() {
     }
 }
 
-// あなたのCSS（.food-card）の形にデータを流し込む関数
-function createFoodCardDOM(data) {
-    const li = document.createElement('li');
-    li.className = 'food-card';
-
-    // バックエンドから送られてくるプロパティ名（foodName, weight, expiryDate, imagePathなど）を当てはめます
-    // 画像URLが相対パスで返ってくる場合はBACKEND_URLと結合します
-    const imageUrl = data.imagePath ? (data.imagePath.startsWith('http') ? data.imagePath : `${BACKEND_URL}${data.imagePath}`) : 'https://placedog.net/500/300';
-    
-    // 賞味期限の日付を見やすく整形（YYYY-MM-DDなど）
-    const expiry = data.expiryDate ? data.expiryDate.split('T')[0] : '未設定';
-
-    li.innerHTML = `
-        <img src="${imageUrl}" alt="${data.foodName || '食材画像'}">
-        <h3>${data.foodName || '名前なし'}</h3>
-        <div style="padding: 0 15px 15px; text-align: left; font-size: 12px; color: #555;">
-            <p style="margin: 4px 0;">重さ: ${data.weight || 0} g</p>
-            <p style="margin: 4px 0; color: #ca3838; font-weight: bold;">賞味期限: ${expiry}</p>
-        </div>
-    `;
-
-    foodContainer.appendChild(li);
+// 4. localStorageにデータを保存する関数
+function saveCardToStorage(newCard) {
+    const currentCards = JSON.parse(localStorage.getItem('myCards')) || [];
+    currentCards.push(newCard);
+    // localStorageは文字列しか保存できないので、JSON.stringifyする
+    localStorage.setItem('myCards', JSON.stringify(currentCards));
 }
+
+// 1. バックエンドのURL（データをくれる窓口）aaa
+// ※ここを、バックエンド担当者が作った本物のURLに書き換えます
+const API_URL = 'https://food-system-backend-4vmg.onrender.com/api/get-foods'; 
+
+// 2. HTML側の料理を入れる箱（ulタグ）を取得しておく
+const foodContainer = document.getElementById('food-container');
+
+// 3. バックエンドにデータをリクエストして画面に表示する関数
+function fetchAndDisplayFoods() {
+    fetch(API_URL)
+        .then(response => {
+             //エラーチェック（データがちゃんと取れなかった場合）
+            if (!response.ok) {
+                throw new Error('データの取得に失敗しました');
+            }
+            return response.json(); // 届いたデータをJSONとして解析
+        })
+        .then(foodList => {
+            // 箱の中身を一度きれいに空にする
+            foodContainer.innerHTML = '';
+
+            // 届いたデータを最初から最後までループして、画面に追加していく
+            foodList.forEach(food => {
+                const cardHtml = `
+                    <li class="food-card">
+                        <img src="${food.imageUrl}" loading="lazy" alt="${food.name}">
+                        <h3>${food.name}</h3>
+                    </li>
+                `;
+                foodContainer.innerHTML += cardHtml;
+            });
+        })
+        .catch(error => {
+            console.error('エラーが発生しました:', error);
+            foodContainer.innerHTML = '<p class="error-message">データの読み込みに失敗しました。</p>';
+        });
+}
+
+// ページが読み込まれたら、自動的に上の関数を実行する
+document.addEventListener('DOMContentLoaded', fetchAndDisplayFoods);
+
+
+
+
+// function loadFoodPage(page) {
+    // URLの後ろにページ番号と件数をくっつけてバックエンドに要請する
+    // fetch(`https://xxxx.com/api/foods?page=${page}&limit=${limit}`)
+        // .then(response => response.json())
+        // .then(foodList => {
+            // 
+            // 一度古いリストを空っぽにする
+            // const container = document.getElementById('food-container');
+            // container.innerHTML = ""; 
+            // 
+            // 新しいページの20件だけを画面に表示する
+            // foodList.forEach(food => {
+                // container.innerHTML += `
+                    // <li class="food-card">
+                        // <img src="${food.imageUrl}" loading="lazy">
+                        // <h3>${food.name}</h3>
+                    // </li>
+                // `;
+            // });
+        // });
+// }
+
+// document.getElementById('next-button').addEventListener('click', () => {
+    // currentPage++;
+    // loadFoodPage(currentPage);
+// });
+
