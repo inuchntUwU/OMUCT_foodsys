@@ -4,6 +4,36 @@
     text-align: center;
 }
 
+/* ホームに戻るボタン全体の配置 */
+.back-to-home {
+    margin-top: 20px; /* 上のパーツとのすき間 */
+    text-align: center;
+    width: 100%;
+}
+
+/* ホームに戻るボタンのデザイン */
+.home-back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background-color: rgba(255, 255, 255, 0.2); /* ほんのり透ける白 */
+    color: white; /* 文字は白 */
+    text-decoration: none; /* 下線を消す */
+    border-radius: 30px; /* 丸みのある可愛いカプセル型 */
+    font-weight: bold;
+    font-size: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.4); /* うっすら白い枠線 */
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* ホバー */
+.home-back-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4); /* 背景を少し明るく */
+    transform: translateY(-2px); /* ふわっと少し浮く */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
 
 /* 全体のリセットと背景色 */
 body {
