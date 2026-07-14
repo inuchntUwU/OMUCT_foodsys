@@ -1,7 +1,7 @@
 const foodContainer = document.getElementById('food-container');
 const BACKEND_URL = 'https://food-system-backend-4vmg.onrender.com';
 
-<<<<<<< HEAD
+
 let currentPage = 1; // 今何ページ目かを覚えておく変数
 const limit = 20;    // 1ページに表示したい件数
 
@@ -30,10 +30,8 @@ const dummyData = [
 dummyData.forEach(cardData => {
     createCardDOM(cardData);
 });
-=======
 // ページ読み込み時にバックエンドから食材一覧を取得する
 window.addEventListener('DOMContentLoaded', fetchFoodList);
->>>>>>> 916eaa2bf8daf540c214a3ba9c353d8f47996481
 
 async function fetchFoodList() {
     try {
