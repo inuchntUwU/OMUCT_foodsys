@@ -17,9 +17,9 @@ body {
 /* 料理一覧セクション全体 */
 .food-list {
     
-   margin-top: 20px;
+    margin-top: 20px;
     padding: 10px;
-    border: 10px solid #73b870;
+    border: 10px solid #73c070;
     border-radius: 25px;
     background-color: #ffffff;
     text-align: center;

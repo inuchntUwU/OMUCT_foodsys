@@ -94,7 +94,7 @@ function saveCardToStorage(newCard) {
     localStorage.setItem('myCards', JSON.stringify(currentCards));
 }
 
-// 1. バックエンドのURL（データをくれる窓口）
+// 1. バックエンドのURL（データをくれる窓口）aaa
 // ※ここを、バックエンド担当者が作った本物のURLに書き換えます
 const API_URL = 'https://food-system-backend-4vmg.onrender.com/api/get-foods'; 
 
