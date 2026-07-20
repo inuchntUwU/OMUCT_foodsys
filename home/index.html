@@ -7,6 +7,13 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script.js" defer></script>
 </head>
+<script type="module">
+  import { watchAuthState } from "../auth.js"; // パスは階層に応じて調整してください
+  watchAuthState(
+    (user, idToken) => { /* ログイン中はそのままページを表示 */ },
+    () => { window.location.href = "../login.html"; } // 未ログインならログインへ強制移動
+  );
+</script>
 <body class="body">
     <h1 class="title">Foodsystem</h1>
     

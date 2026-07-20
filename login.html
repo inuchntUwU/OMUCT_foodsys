@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ログイン - OMUCT Food System</title>
+  <link rel="stylesheet" href="./home/style.css">
+  <link rel="stylesheet" href="./login.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="system-title">OMUCT Food System</div>
+      <p class="login-subtext">サービスを利用するにはログインが必要です</p>
+      
+      <button id="login-btn" class="google-login-btn">
+        <img class="google-icon" src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/logo_googleg_color_24dp.png" alt="Google icon">
+        Googleアカウントでログイン
+      </button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { loginWithGoogle, watchAuthState } from "./auth.js";
+
+    // すでにログインしている場合は自動的にホームへリダイレクト
+    watchAuthState((user) => {
+      window.location.href = "./home/index.html";
+    });
+
+    // ログインボタンのクリックイベント
+    document.getElementById("login-btn").addEventListener("click", () => {
+      loginWithGoogle()
+        .then((result) => {
+          window.location.href = "./home/index.html";
+        })
+        .catch((error) => {
+          console.error("ログインエラー:", error);
+          alert("ログインに失敗しました。もう一度お試しください。");
+        });
+    });
+  </script>
+</body>
+</html>

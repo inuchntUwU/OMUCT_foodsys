@@ -11,7 +11,13 @@
 <div class="back-to-home">
     <a href="../home/index.html" class="home-back-btn">🏠 ホームに戻る</a>
 </div>
-    
+<script type="module">
+  import { watchAuthState } from "../auth.js"; // パスは階層に応じて調整してください
+  watchAuthState(
+    (user, idToken) => { /* ログイン中はそのままページを表示 */ },
+    () => { window.location.href = "../login.html"; } // 未ログインならログインへ強制移動
+  );
+</script>
 <body>
     <div class="title">今ある食材一覧</div>1
     
