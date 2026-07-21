@@ -47,6 +47,8 @@
 }
 .html {
     background-color: 	#004080; /* 食欲失わせる（？）色 */
+    background: linear-gradient(135deg, #004080 0%, #80bfff 100%);
+    color: #333;
 }
 .title {
     text-align: center;
