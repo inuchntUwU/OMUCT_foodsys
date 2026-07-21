@@ -30,7 +30,7 @@ body {
 
 /* 選択肢の背景 */
 .upload-section {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.9);
     max-width: 600px;
     width: 100%;
     padding: 40px 20px;
