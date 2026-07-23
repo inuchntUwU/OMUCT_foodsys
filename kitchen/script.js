@@ -112,6 +112,115 @@ document.addEventListener('DOMContentLoaded', fetchAndDisplayFoods);
 
 
 
+
+
+import React, { useState, useEffect } from 'react';
+
+// 食材データを取得するAPIのリンク（URL）
+const DATA_URL = 'https://food-system-backend-4vmg.onrender.com'; 
+
+export default function FoodList() {
+  const [foods, setFoods] = useState([]);
+  const [selectedId, setSelectedId] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // データ取得
+  useEffect(() => {
+    const fetchFoods = async () => {
+      try {
+        const response = await fetch(DATA_URL);
+        const data = await response.json();
+        setFoods(data);
+      } catch (err) {
+        console.error('データ取得エラー:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFoods();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-blue-500 text-white font-bold">
+        読み込み中...
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative min-h-screen bg-blue-500 p-8">
+      
+      {/* 💡 カード展開時：枠外（画面全体）タップで元に戻る完全透明レイヤー */}
+      {selectedId !== null && (
+        <div
+          className="fixed inset-0 z-10 bg-transparent cursor-default"
+          onClick={() => setSelectedId(null)}
+        />
+      )}
+
+      {/* 💡 食材カード一覧 */}
+      <div className="relative z-20 flex flex-wrap justify-center gap-4">
+        {foods.map((food) => {
+          const isOpen = selectedId === food.id;
+
+          return (
+            <div
+              key={food.id}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedId(isOpen ? null : food.id); // クリックで開閉トグル
+              }}
+              style={{ transition: 'all 0.3s ease-in-out' }}
+              className={`
+                cursor-pointer bg-white rounded-2xl p-4 shadow-lg flex items-center overflow-hidden
+                ${isOpen ? 'w-[480px]' : 'w-44'} 
+              `}
+            >
+              {/* 左側：画像と名前 */}
+              <div className="w-36 flex-shrink-0 text-center">
+                <div className="w-full h-24 bg-black rounded-lg flex items-center justify-center text-white overflow-hidden">
+                  {food.imageUrl ? (
+                    <img src={food.imageUrl} alt={food.name} className="w-full h-full object-cover" />
+                  ) : (
+                    '📷'
+                  )}
+                </div>
+                <p className="mt-2 font-bold text-gray-800 text-sm truncate">
+                  {food.name}
+                </p>
+              </div>
+
+              {/* 右側：展開時のみ表示される情報（名前・重さ・賞味期限） */}
+              {isOpen && (
+                <div className="ml-6 flex-grow border-l pl-6 border-gray-200 text-sm text-gray-700">
+                  {/* 食材名 */}
+                  <h3 className="text-lg font-bold text-gray-900 mb-3 truncate">
+                    {food.name}
+                  </h3>
+
+                  {/* 詳細情報 */}
+                  <div className="space-y-2">
+                    <p className="flex justify-between">
+                      <span className="text-gray-400">重さ/数量:</span>
+                      <span className="font-semibold text-gray-800">{weight}</span>
+                    </p>
+                    <p className="flex justify-between">
+                      <span className="text-gray-400">賞味期限:</span>
+                      <span className="font-bold text-red-500">{expiration_date}</span>
+                    </p>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+
 // function loadFoodPage(page) {
     // URLの後ろにページ番号と件数をくっつけてバックエンドに要請する
     // fetch(`https://xxxx.com/api/foods?page=${page}&limit=${limit}`)
