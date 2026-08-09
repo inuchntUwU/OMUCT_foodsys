@@ -5,31 +5,30 @@
     padding: 0;
 }
 
-/* ヘッダー全体の設定 */
 .header {
     width: 100%;
-    padding: 10px 20px;          /* 上下・左右の余白 */
-    display: flex;
-    justify-content: space-between; /* ✨ 左端と右端に要素を振り分ける */
-    align-items: center;            /* ✨ 上下の中央に揃える */
-    box-sizing: border-box;
     position: absolute;
     top: 0;
     left: 0;
+    display: flex;
+    justify-content: space-between; /* 左と右に振り分ける */
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.2); /* ✨ 背景色を再設定 */
+    backdrop-filter: blur(8px);
+    box-sizing: border-box;
+    z-index: 100; /* ✨ 他のカードの裏に隠れるのを防ぐ */
 }
 
-/* ロゴエリア（左側） */
 .header-logo {
     display: flex;
     align-items: center;
-    /* margin-left: 0; もし不要な余白が入っていたらリセット */
+    margin: 0; /* 右寄りの原因になる余計な余白を消す */
 }
 
-/* ロゴ画像 */
 .logo-img {
     height: 38px;
     width: auto;
-    object-fit: contain;
 }
 
 /*背景（グラデーション）*/
