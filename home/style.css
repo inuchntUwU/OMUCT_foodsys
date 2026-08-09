@@ -29,6 +29,7 @@
 .logo-img {
     height: 38px;
     width: auto;
+    float:left;
 }
 
 /*背景（グラデーション）*/
