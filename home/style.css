@@ -26,6 +26,12 @@
     color: white;
     letter-spacing: 1px;
 }
+/* ロゴ画像のサイズ調整 */
+.logo-img {
+    height: 38px;          /* ヘッダーからはみ出ない高さ */
+    width: auto;           /* 横幅は自動で綺麗に伸び縮み */
+    object-fit: contain;   /* 画像の形を崩さない */
+}
 
 /*背景（グラデーション）*/
 body {
