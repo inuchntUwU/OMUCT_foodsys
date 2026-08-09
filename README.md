@@ -1,4 +1,4 @@
-# OMUCT Food System (OMUCT_foodsys)
+# Eat It (OMUCT_foodsys)
 
 家庭のいまある食材の管理に使うことができるWebシステムです。
 
@@ -6,7 +6,7 @@
 
 ## 🌟 概要 (Overview)
 
-`OMUCT_foodsys` は、フロントエンド技術（HTML/CSS/JavaScript）を用いて構築された食品管理・提供システムです。  
+`Ear it` は、フロントエンド技術（HTML/CSS/JavaScript）を用いて構築された食品管理・提供システムです。  
 カメラなどによるUI提供し、リアルタイムな情報連携により食材ロス、家計負担の軽減を実現します。
 
 ---
@@ -22,7 +22,7 @@
 
 ---
 
-### OMUCT Food System (OMUCT_foodsys)
+### Eat it (OMUCT_foodsys)
 
 家庭内の食材を一括管理し、使い切りをサポートすることで**食品ロス（フードロス）を削減するWebシステム**です。
 
