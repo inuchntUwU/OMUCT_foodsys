@@ -1,5 +1,5 @@
 // Firebaseの設定情報 (クライアント側に公開されても問題ない値です)
-const firebaseConfig = {
+export const firebaseConfig = {
     apiKey: "AIzaSyA3cyXgKa8ZaJPJX1DCRkMWEi1krlUOMtc",
     authDomain: "foodsys-login.firebaseapp.com",
     projectId: "foodsys-login",
