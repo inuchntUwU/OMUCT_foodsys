@@ -4,6 +4,12 @@
     color: #ffffff;
 }
 
+body {
+
+font-family: 'Helvetica Neue', Arial, sans-serif;
+
+｝
+
 /* ヘッダー（すりガラス・白半透明） */
 .header {
     width: 100%;
