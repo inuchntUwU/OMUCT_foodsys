@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eat it -キッチン</title>
+    <link rel="icon" href="../home/eat it.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
-      
-<div class="back-to-home">
-    <a href="../home/index.html" class="home-back-btn">🏠 ホームに戻る</a>
-</div>
+    
 <script type="module">
   import { watchAuthState } from "../auth.js"; // パスは階層に応じて調整してください
   watchAuthState(
@@ -19,6 +17,15 @@
   );
 </script>
 <body>
+    <header class="header">
+        <div class="header-logo">
+            <img src="../home/eat it.png" alt="EAT IT" class="logo-img">
+        </div>
+        <div class="back-to-home">
+            <a href="../home/index.html" class="home-back-btn">🏠 ホームに戻る</a>
+        </div>
+    </header>
+    
     <div class="title">今ある食材一覧</div>
     
     <section class="food-list">
