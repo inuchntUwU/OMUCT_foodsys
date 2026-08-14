@@ -14,21 +14,21 @@ body {
     align-items: center;
 ｝
 
-/* ヘッダー（すりガラス・白半透明） */
+/* --- ヘッダーを画面横いっぱいに広げる --- */
 .header {
     width: 100%;
     position: absolute;
     top: 0;
     left: 0;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.2); /* 白半透明 */
+    backdrop-filter: blur(8px);                 /* すりガラス効果 */
     z-index: 100;
+    box-sizing: border-box;
 }
-
+    
 .header-left {
     display: flex;
     align-items: center;
