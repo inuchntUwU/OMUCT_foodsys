@@ -4,31 +4,20 @@
     color: #ffffff;
 }
 
-body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(135deg, #004080 0%, #80bfff 100%);
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    align-items: center;
-｝
-
-/* --- ヘッダーを画面横いっぱいに広げる --- */
 .header {
     width: 100%;
     position: absolute;
     top: 0;
     left: 0;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: rgba(255, 255, 255, 0.2); /* 白半透明 */
-    backdrop-filter: blur(8px);                 /* すりガラス効果 */
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
     z-index: 100;
-    box-sizing: border-box;
 }
-    
+
 .header-left {
     display: flex;
     align-items: center;
@@ -72,6 +61,13 @@ body {
     border-radius: 25px;
     background-color: #ffffff;
     text-align: center;
+}
+
+.html {
+    background-color: #004080; /* 食欲失わせる（？）色 */
+    background: linear-gradient(135deg, #004080 0%, #80bfff 100%);
+    color: #333;
+    min-height: 100vh;
 }
 
 .title {
