@@ -1,19 +1,35 @@
-// 1. 各種設定（本物のバックエンドのURL）
-const API_URL = 'https://food-system-backend-4vmg.onrender.com/api/get-foods'; 
+// kitchen/script.js
+import { requireAuth, getIdToken } from "../auth.js";
+
+const API_URL = 'https://food-system-backend-4vmg.onrender.com/api/get-foods';
 const foodContainer = document.getElementById('food-container');
 
-// 2. バックエンドからデータを取得して画面に表示する関数
+// ログイン必須。ログイン済みなら一覧取得を始める。
+requireAuth((user) => {
+    console.log("ログイン中:", user.email);
+    fetchAndDisplayFoods();
+}, "../login.html");
+
+// バックエンドからデータを取得して画面に表示する関数
 async function fetchAndDisplayFoods() {
     try {
-        // バックエンドにデータをリクエスト
-        const response = await fetch(API_URL);
-        
+        // 今ログインしているユーザーのIDトークンを付けてリクエスト
+        // バックエンド側でトークンを検証し、そのユーザーが登録した食材だけを
+        // 返すようにしてもらう想定(誰の食材か絞り込むためのキー)
+        const idToken = await getIdToken();
+
+        const response = await fetch(API_URL, {
+            headers: {
+                Authorization: `Bearer ${idToken}`,
+            },
+        });
+
         if (!response.ok) {
             throw new Error('データの取得に失敗しました');
         }
 
         const result = await response.json();
-        
+
         // コンテナを一旦空にする
         foodContainer.innerHTML = '';
 
@@ -28,9 +44,9 @@ async function fetchAndDisplayFoods() {
 
         // 取得した料理データを1つずつループ処理して画面に流し込む
         foodList.forEach(food => {
-            // 画像がない場合のデフォルト画像を設定（もし image_path が空なら、代わりの画像を表示）
+            // 画像がない場合のデフォルト画像を設定
             const imageUrl = food.image_path || 'https://placedog.net/500/300';
-            
+
             const cardHtml = `
                 <li class="food-card">
                     <img src="${imageUrl}" loading="lazy" alt="${food.food_name || '料理画像'}">
@@ -45,29 +61,3 @@ async function fetchAndDisplayFoods() {
         foodContainer.innerHTML = `<p style="color: red; text-align: center;">料理データの取得に失敗しました。</p>`;
     }
 }
-
-// 3. ページが読み込まれたら、自動的に上の関数を実行する
-document.addEventListener('DOMContentLoaded', fetchAndDisplayFoods);
-
-// ログインせずにアクセスした場合はログイン画面にリダイレクト
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
-const firebaseConfig = {
-  // ここに自分のconfig
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-// ログイン状態の監視
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // ログインしている場合：そのままページを表示（ユーザー情報を画面に出したりする）
-    console.log("ログイン中:", user.email);
-  } else {
-    // 未ログインの場合：ログイン画面 (index.html) に強制送還！
-    alert("ログインが必要です");
-    window.location.href = "index.html"; 
-  }
-});

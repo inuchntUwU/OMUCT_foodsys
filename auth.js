@@ -1,93 +1,61 @@
-// 1. 設定ファイルとFirebase SDKのインポート
+// auth.js
+// Googleログインの共通処理。ルート直下に置き、各ページから
+// import { loginWithGoogle, watchAuthState, getIdToken, ... } from "./auth.js" (または "../auth.js")
+// の形で使う。
 import { firebaseConfig } from './firebase-config.js';
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { 
-  getAuth, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  signOut, 
-  onAuthStateChanged 
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-// 2. Firebaseの初期化
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+export const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
-// 3. DOM要素の取得
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const btnSignup = document.getElementById('btn-signup');
-const btnLogin = document.getElementById('btn-login');
-const btnLogout = document.getElementById('btn-logout');
-const authForm = document.getElementById('auth-form');
-const userInfo = document.getElementById('user-info');
-const userEmailText = document.getElementById('user-email');
-const messageText = document.getElementById('message');
+// Googleでログイン(ポップアップ)。成功したらuserを返す。
+export async function loginWithGoogle() {
+  const result = await signInWithPopup(auth, provider);
+  return result.user;
+}
 
-// ① 新規ユーザー登録
-if (btnSignup) {
-  btnSignup.addEventListener('click', () => {
-    const email = emailInput.value;
-    const password = passwordInput.value;
-    messageText.textContent = "";
+// ログアウト
+export function logout() {
+  return signOut(auth);
+}
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log("登録成功:", userCredential.user);
-      })
-      .catch((error) => {
-        console.error("登録エラー:", error);
-        messageText.textContent = "登録エラー: " + error.message;
-      });
+// ログイン状態の変化を監視。
+// onLogoutは省略可(渡さなければ何もしない)。
+export function watchAuthState(onLogin, onLogout = () => {}) {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      onLogin(user);
+    } else {
+      onLogout();
+    }
   });
 }
 
-// ② ログイン
-if (btnLogin) {
-  btnLogin.addEventListener('click', () => {
-    const email = emailInput.value;
-    const password = passwordInput.value;
-    messageText.textContent = "";
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log("ログイン成功:", userCredential.user);
-      })
-      .catch((error) => {
-        console.error("ログインエラー:", error);
-        messageText.textContent = "ログインエラー: " + error.message;
-      });
-  });
+// 現在ログイン中ユーザーのIDトークンを取得。
+// バックエンドに送るときはこれをAuthorizationヘッダーに乗せる。
+export async function getIdToken() {
+  const user = auth.currentUser;
+  if (!user) throw new Error("ログインしていません");
+  return await user.getIdToken(); // 期限切れなら自動でリフレッシュされる
 }
 
-// ③ ログアウト
-if (btnLogout) {
-  btnLogout.addEventListener('click', () => {
-    signOut(auth)
-      .then(() => {
-        console.log("ログアウト完了");
-      })
-      .catch((error) => {
-        console.error("ログアウトエラー:", error);
-        messageText.textContent = "ログアウトエラー: " + error.message;
-      });
-  });
+// ログイン必須ページの先頭で呼ぶ。
+// ログイン済みならonReady(user)を呼び、未ログインならログインページへ飛ばす。
+// loginPagePathはページの階層に合わせて呼び出し側で調整する
+// (例: home/やcamera/の中からなら "../login.html")
+export function requireAuth(onReady, loginPagePath = "/login.html") {
+  watchAuthState(
+    (user) => onReady(user),
+    () => {
+      window.location.href = loginPagePath;
+    }
+  );
 }
-
-// ④ ログイン状態の監視 (UIの切り替え)
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // ログイン中の処理
-    console.log("ログイン中のユーザー:", user.email);
-    if (userEmailText) userEmailText.textContent = user.email;
-    if (authForm) authForm.classList.add('hidden');
-    if (userInfo) userInfo.classList.remove('hidden');
-  } else {
-    // ログアウト状態の処理
-    console.log("未ログイン状態です");
-    if (authForm) authForm.classList.remove('hidden');
-    if (userInfo) userInfo.classList.add('hidden');
-    if (emailInput) emailInput.value = "";
-    if (passwordInput) passwordInput.value = "";
-  }
-});

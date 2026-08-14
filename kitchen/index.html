@@ -3,21 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eat it -キッチン</title>
+    <title>キッチン</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <script type="module" src="script.js" defer></script>
 </head>
       
 <div class="back-to-home">
     <a href="../home/index.html" class="home-back-btn">🏠 ホームに戻る</a>
 </div>
-<script type="module">
-  import { watchAuthState } from "../auth.js"; // パスは階層に応じて調整してください
-  watchAuthState(
-    (user, idToken) => { /* ログイン中はそのままページを表示 */ },
-    () => { window.location.href = "../login.html"; } // 未ログインならログインへ強制移動
-  );
-</script>
+    
 <body>
     <div class="title">今ある食材一覧</div>
     
