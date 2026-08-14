@@ -4,6 +4,27 @@
     text-align: center;
 }
 
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;              /* 白背景 */
+    border-bottom: 1px solid #e0e0e0;       /* 下側にうっすら線を引く */
+    box-sizing: border-box;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 38px;
+    width: auto;
+}
+
 /* ホームに戻るボタンの配置（左上）*/
 .back-to-home {
     position: absolute; /* 画面全体の絶対的な位置を指定するよ */
