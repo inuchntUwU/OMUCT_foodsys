@@ -4,17 +4,23 @@
     text-align: center;
 }
 
-/* ヘッダー全体の設定 */
+/* ヘッダー全体（白の半透明＆すりガラス効果） */
 .header {
     width: 100%;
     display: flex;
-    justify-content: space-between; /* 左にロゴ、右にボタンを配置 */
     align-items: center;
     padding: 12px 24px;
-    background-color: #ffffff;      /* 白背景 */
-    border-bottom: 1px solid #e0e0e0;
+    background-color: rgba(255, 255, 255, 0.2); /* 💡 白の半透明 */
+    backdrop-filter: blur(8px);                 /* 💡 背景をぼかす（すりガラス風） */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     box-sizing: border-box;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ロゴとボタンを横並びにするグループ */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px; /* ロゴとボタンの間のすき間 */
 }
 
 .header-logo {
@@ -27,29 +33,26 @@
     width: auto;
 }
 
-/* ホームに戻るボタン（ヘッダー右側に収まるように調整） */
-.back-to-home {
-    /* position: absolute などを削除してFlexboxに任せる */
-}
-
+/* ホームに戻るボタン（白透明背景になじむデザイン） */
 .home-back-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 16px;
-    background-color: #f0f4f8;       /* 薄いグレー・青背景 */
-    color: #004080;                  /* 白背景で見やすい濃い文字色 */
+    padding: 6px 14px;
+    background-color: rgba(255, 255, 255, 0.25); /* 💡 ボタンも半透明 */
+    color: #ffffff;                             /* 白文字 */
     text-decoration: none; 
-    border-radius: 20px;            /* カプセル型 */
+    border-radius: 20px; 
     font-weight: bold;
-    font-size: 0.9rem;
-    border: 1px solid #d0d7de; 
+    font-size: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.4); 
     transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
 }
 
 .home-back-btn:hover {
-    background-color: #e1e9f0; 
-    transform: translateY(-2px); 
+    background-color: rgba(255, 255, 255, 0.4); 
+    transform: translateY(-1px); 
 }
 
 /* 全体のリセットと背景色 */
