@@ -3,21 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>キッチン</title>
+    <title>eat it -キッチン</title>
+    <link rel="icon" href="../home/eat it.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js" defer></script>
 </head>
-      
-<div class="back-to-home">
-    <a href="../home/index.html" class="home-back-btn">🏠 ホームに戻る</a>
-</div>
     
+<script type="module">
+  import { watchAuthState } from "../auth.js"; // パスは階層に応じて調整してください
+  watchAuthState(
+    (user, idToken) => { /* ログイン中はそのままページを表示 */ },
+    () => { window.location.href = "../login.html"; } // 未ログインならログインへ強制移動
+  );
+</script>
 <body>
-    <div class="title">今ある食材一覧</div>
+    <header class="header">
+        <div class="header-left">
+            <div class="header-logo">
+                <img src="../home/eat it.png" alt="EAT IT" class="logo-img">
+            </div>
+            <div class="back-to-home">
+                <a href="../home/index.html" class="home-back-btn">🏠 ホームに戻る</a>
+            </div>
+        </div>
+    </header>
     
-    <section class="food-list">
-        <ul id="food-container" class="food-grid"></ul>
-    </section>
+    <main class="main-container">
+        <div class="title">今ある食材一覧</div>
+        
+        <section class="food-list">
+            <ul id="food-container" class="food-grid"></ul>
+        </section>
+    </main>
 </body>
 <footer class="footer">
   <p>&copy; 2026 Foodsystem. All rights reserved.</p>
