@@ -7,20 +7,23 @@
 /* ヘッダー全体（白の半透明＆すりガラス効果） */
 .header {
     width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 12px 24px;
-    background-color: rgba(255, 255, 255, 0.2); /* 💡 白の半透明 */
-    backdrop-filter: blur(8px);                 /* 💡 背景をぼかす（すりガラス風） */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    box-sizing: border-box;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    z-index: 100;
 }
 
 /* ロゴとボタンを横並びにするグループ */
 .header-left {
     display: flex;
     align-items: center;
-    gap: 16px; /* ロゴとボタンの間のすき間 */
+    gap: 15px;
 }
 
 .header-logo {
@@ -29,25 +32,23 @@
 }
 
 .logo-img {
-    height: 38px;
+    height: 40px;
     width: auto;
 }
 
-/* ホームに戻るボタン（白透明背景になじむデザイン） */
+/* ホームに戻るボタン */
 .home-back-btn {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     padding: 6px 14px;
-    background-color: rgba(255, 255, 255, 0.25); /* 💡 ボタンも半透明 */
-    color: #ffffff;                             /* 白文字 */
+    background-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
     text-decoration: none; 
     border-radius: 20px; 
     font-weight: bold;
     font-size: 0.85rem;
     border: 1px solid rgba(255, 255, 255, 0.4); 
     transition: all 0.2s ease;
-    backdrop-filter: blur(4px);
 }
 
 .home-back-btn:hover {
@@ -68,6 +69,13 @@ body {
     align-items: center;
 }
 
+.main-container {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 80px;
+    padding: 20px;
+}
+
 .title {
     color: #fcfff9;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -75,7 +83,6 @@ body {
 
 /* 料理一覧セクション全体 */
 .food-list {
-    
     margin-top: 20px;
     padding: 10px;
     border: 10px solid #73c070;
