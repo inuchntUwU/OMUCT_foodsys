@@ -57,7 +57,7 @@
 .upload-section {
     margin-top: 90px; /* 💡 ヘッダーの高さ分、下にずらす */
     padding: 20px;
-    border: 5px solid rgba(255, 255, 255, 0.4); /*枠*/
+    border: 5px solid #ffffff;
     border-radius: 25px;
     background-color: rgba(255, 255, 255, 0.95);
     text-align: center;
