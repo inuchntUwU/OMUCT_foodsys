@@ -1,5 +1,6 @@
 const foodContainer = document.getElementById('food-container');
 const BACKEND_URL = 'https://food-system-backend-4vmg.onrender.com';
+import React, { useState, useEffect } from 'react';
 
 <<<<<<< HEAD
 let currentPage = 1; // 今何ページ目かを覚えておく変数
@@ -109,12 +110,7 @@ function fetchAndDisplayFoods() {
 // ページが読み込まれたら、自動的に上の関数を実行する
 document.addEventListener('DOMContentLoaded', fetchAndDisplayFoods);
 
-
-
-
-
-
-import React, { useState, useEffect } from 'react';
+//ここから拡大表示
 
 // 食材データを取得するAPIのリンク（URL）
 const DATA_URL = 'https://food-system-backend-4vmg.onrender.com'; 
@@ -163,14 +159,15 @@ export default function FoodList() {
       {/* 💡 食材カード一覧 */}
       <div className="relative z-20 flex flex-wrap justify-center gap-4">
         {foods.map((food) => {
-          const isOpen = selectedId === food.id;
+          // 変更点1: MongoDBのIDは _id
+          const isOpen = selectedId === food._id;
 
           return (
             <div
-              key={food.id}
+              key={food._id}
               onClick={(e) => {
                 e.stopPropagation();
-                setSelectedId(isOpen ? null : food.id); // クリックで開閉トグル
+                setSelectedId(isOpen ? null : food._id); // クリックで開閉トグル
               }}
               style={{ transition: 'all 0.3s ease-in-out' }}
               className={`
@@ -181,14 +178,16 @@ export default function FoodList() {
               {/* 左側：画像と名前 */}
               <div className="w-36 flex-shrink-0 text-center">
                 <div className="w-full h-24 bg-black rounded-lg flex items-center justify-center text-white overflow-hidden">
-                  {food.imageUrl ? (
-                    <img src={food.imageUrl} alt={food.name} className="w-full h-full object-cover" />
+                  {/* 変更点2: スキーマの image_path を使用 */}
+                  {food.image_path ? (
+                    <img src={food.image_path} alt={food.food_name} className="w-full h-full object-cover" />
                   ) : (
                     '📷'
                   )}
                 </div>
+                {/* 変更点3: スキーマの food_name を使用 */}
                 <p className="mt-2 font-bold text-gray-800 text-sm truncate">
-                  {food.name}
+                  {food.food_name}
                 </p>
               </div>
 
@@ -197,19 +196,26 @@ export default function FoodList() {
                 <div className="ml-6 flex-grow border-l pl-6 border-gray-200 text-sm text-gray-700">
                   {/* 食材名 */}
                   <h3 className="text-lg font-bold text-gray-900 mb-3 truncate">
-                    {food.name}
+                    {food.food_name}
                   </h3>
 
                   {/* 詳細情報 */}
                   <div className="space-y-2">
                     <p className="flex justify-between">
                       <span className="text-gray-400">重さ/数量:</span>
-                      <span className="font-semibold text-gray-800">{weight}</span>
+                      <span className="font-semibold text-gray-800">
+                        {/* 変更点4: 数値のweightに単位(g)を付与（nullの場合は未設定） */}
+                        {food.weight !== null && food.weight !== undefined ? `${food.weight} g` : '未設定'}
+                      </span>
                     </p>
                     <p className="flex justify-between">
                       <span className="text-gray-400">賞味期限:</span>
-                      <span className="font-bold text-red-500">{expiration_date}</span>
+                      <span className="font-bold text-red-500">
+                        {/* 変更点5: スキーマの expiration_date を使用 */}
+                        {food.expiration_date || '未設定'}
+                      </span>
                     </p>
+                  </div>
                 </div>
               )}
             </div>
