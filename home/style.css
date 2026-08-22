@@ -111,6 +111,12 @@ body {
     transform: translateY(-2px);
 }
 
+.generate-code-botton {
+    background-color: #3498db;
+}
+
+
+
 /* リセットボタン（警告色のレッド） */
 .reset-button {
     display: flex;
