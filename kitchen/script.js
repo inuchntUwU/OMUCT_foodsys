@@ -1,12 +1,9 @@
-// kitchen/script.js
 import { requireAuth, getIdToken } from "../auth.js";
-import React, { useState, useEffect } from 'react';
 
 const API_URL = 'https://food-system-backend-4vmg.onrender.com/api/get-foods';
 const foodContainer = document.getElementById('food-container');
-const BACKEND_URL = 'https://food-system-backend-4vmg.onrender.com';
 
-// ログイン必須。ログイン済みなら一覧取得を始める。
+// ログイン必須。ログイン済みなら一覧取得を開始
 requireAuth((user) => {
     console.log("ログイン中:", user.email);
     fetchAndDisplayFoods();
@@ -15,9 +12,6 @@ requireAuth((user) => {
 // バックエンドからデータを取得して画面に表示する関数
 async function fetchAndDisplayFoods() {
     try {
-        // 今ログインしているユーザーのIDトークンを付けてリクエスト
-        // バックエンド側でトークンを検証し、そのユーザーが登録した食材だけを
-        // 返すようにしてもらう想定(誰の食材か絞り込むためのキー)
         const idToken = await getIdToken();
 
         const response = await fetch(API_URL, {
@@ -35,79 +29,99 @@ async function fetchAndDisplayFoods() {
         // コンテナを一旦空にする
         foodContainer.innerHTML = '';
 
-        // 送られてきたデータの「data」部分を取り出す
-        const foodList = result.data;
+        // 送られてきたデータの「data」部分を取り出す（データ構造の違いに対応）
+        const foodList = result.data || result;
 
         // もしデータが空っぽだった場合の処理
-        if (!foodList || foodList.length === 0) {
+        if (!foodList || !Array.isArray(foodList) || foodList.length === 0) {
             foodContainer.innerHTML = '<p class="empty-message">登録されている料理がありません。</p>';
             return;
         }
 
         // 取得した料理データを1つずつループ処理して画面に流し込む
         foodList.forEach(food => {
-            // 画像がない場合のデフォルト画像を設定
             const imageUrl = food.image_path || 'https://placedog.net/500/300';
+            const foodName = food.food_name || '名前なし';
+            const weightText = (food.weight !== null && food.weight !== undefined) ? `${food.weight} g` : '未設定';
+            const expireText = food.expiration_date || '未設定';
 
-            const cardHtml = `
-                <li class="food-card">
-                    <img src="${imageUrl}" loading="lazy" alt="${food.food_name || '料理画像'}">
-                    <h3>${food.food_name || '名前なし'}</h3>
-                </li>
+            // カード要素（li）の動的作成
+            const cardItem = document.createElement('li');
+            cardItem.className = 'food-card';
+            cardItem.style.cursor = 'pointer';
+            cardItem.style.transition = 'all 0.3s ease-in-out';
+            cardItem.style.display = 'flex';
+            cardItem.style.alignItems = 'center';
+            cardItem.style.overflow = 'hidden';
+            cardItem.style.width = '176px'; // 初期状態の幅
+            cardItem.style.background = '#ffffff';
+            cardItem.style.borderRadius = '1rem';
+            cardItem.style.padding = '1rem';
+            cardItem.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+
+            // カード内部のHTML
+            cardItem.innerHTML = `
+                <div style="display: flex; width: 100%; align-items: center;">
+                    {/* 左側：画像と食材名 */}
+                    <div style="width: 100%; text-align: center; flex-shrink: 0;">
+                        <div style="width: 100%; height: 96px; background: #000; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: white; overflow: hidden;">
+                            <img src="${imageUrl}" loading="lazy" alt="${foodName}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <p style="margin-top: 0.5rem; font-weight: bold; color: #1f2937; font-size: 0.875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            ${foodName}
+                        </p>
+                    </div>
+
+                    {/* 右側：クリック展開時の詳細エリア（初期状態は非表示） */}
+                    <div class="detail-section" style="display: none; margin-left: 1.5rem; border-left: 1px solid #e5e7eb; padding-left: 1.5rem; font-size: 0.875rem; color: #374151; min-width: 240px;">
+                        <h3 style="font-size: 1.125rem; font-weight: bold; color: #111827; margin-bottom: 0.75rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            ${foodName}
+                        </h3>
+                        <p style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="color: #9ca3af;">重さ/数量:</span>
+                            <span style="font-weight: 600; color: #1f2937;">${weightText}</span>
+                        </p>
+                        <p style="display: flex; justify-content: space-between;">
+                            <span style="color: #9ca3af;">賞味期限:</span>
+                            <span style="font-weight: bold; color: #ef4444;">${expireText}</span>
+                        </p>
+                    </div>
+                </div>
             `;
-            foodContainer.innerHTML += cardHtml;
+
+            // カードをクリックした時の開閉処理
+            let isOpen = false;
+            cardItem.addEventListener('click', (e) => {
+                e.stopPropagation(); // 画面全体のクリックイベントに伝播させない
+                isOpen = !isOpen;
+                const detailSection = cardItem.querySelector('.detail-section');
+                
+                if (isOpen) {
+                    cardItem.style.width = '480px'; // 横に拡大
+                    detailSection.style.display = 'block';
+                } else {
+                    cardItem.style.width = '176px'; // 元のサイズに戻す
+                    detailSection.style.display = 'none';
+                }
+            });
+
+            foodContainer.appendChild(cardItem);
+        });
+
+        // カード以外の場所（画面全体）をタップしたらすべてのカードをたたむ
+        document.addEventListener('click', () => {
+            const cards = foodContainer.querySelectorAll('.food-card');
+            cards.forEach(card => {
+                card.style.width = '176px';
+                const detail = card.querySelector('.detail-section');
+                if (detail) detail.style.display = 'none';
+            });
         });
 
     } catch (error) {
         console.error('エラー:', error);
         foodContainer.innerHTML = `<p style="color: red; text-align: center;">料理データの取得に失敗しました。</p>`;
     }
-}
-
-// 4. localStorageにデータを保存する関数
-function saveCardToStorage(newCard) {
-    const currentCards = JSON.parse(localStorage.getItem('myCards')) || [];
-    currentCards.push(newCard);
-    // localStorageは文字列しか保存できないので、JSON.stringifyする
-    localStorage.setItem('myCards', JSON.stringify(currentCards));
-}
-
-// 1. バックエンドのURL（データをくれる窓口）aaa
-// ※ここを、バックエンド担当者が作った本物のURLに書き換えます
-const API_URL = 'https://food-system-backend-4vmg.onrender.com/api/get-foods'; 
-
-// 2. HTML側の料理を入れる箱（ulタグ）を取得しておく
-const foodContainer = document.getElementById('food-container');
-
-// 3. バックエンドにデータをリクエストして画面に表示する関数
-function fetchAndDisplayFoods() {
-    fetch(API_URL)
-        .then(response => {
-             //エラーチェック（データがちゃんと取れなかった場合）
-            if (!response.ok) {
-                throw new Error('データの取得に失敗しました');
-            }
-            return response.json(); // 届いたデータをJSONとして解析
-        })
-        .then(foodList => {
-            // 箱の中身を一度きれいに空にする
-            foodContainer.innerHTML = '';
-
-            // 届いたデータを最初から最後までループして、画面に追加していく
-            foodList.forEach(food => {
-                const cardHtml = `
-                    <li class="food-card">
-                        <img src="${food.imageUrl}" loading="lazy" alt="${food.name}">
-                        <h3>${food.name}</h3>
-                    </li>
-                `;
-                foodContainer.innerHTML += cardHtml;
-            });
-        })
-        .catch(error => {
-            console.error('エラーが発生しました:', error);
-            foodContainer.innerHTML = '<p class="error-message">データの読み込みに失敗しました。</p>';
-        });
 }
 
 // ページが読み込まれたら、自動的に上の関数を実行する
