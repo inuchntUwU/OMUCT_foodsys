@@ -75,11 +75,13 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
 
     const weightInput = document.getElementById('weightInput');
     const expiryInput = document.getElementById('expiryInput');
+    const notifyDaysInput = document.getElementById('notifyDaysInput');
 
     // FormDataに画像と数値をセット
     const formData = new FormData();
     formData.append('weight', parseInt(weightInput.value, 10));        // 重量(g)
     formData.append('expiryDate', expiryInput.value);                  // 賞味期限(YYYY-MM-DD)
+    formData.append('notifyDaysBefore', parseInt(notifyDaysInput.value, 10)); // 何日前に通知するか(日前)
     formData.append('foodName', document.getElementById('foodNameInput').value); // 食品名
     formData.append('image', capturedBlob, 'photo.png');               // 撮影画像(png)
 
