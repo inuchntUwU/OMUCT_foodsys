@@ -1,6 +1,5 @@
 // kitchen/script.js
 import { requireAuth, getIdToken } from "../auth.js";
-import React, { useState, useEffect } from 'react';
 
 const API_URL = 'https://food-system-backend-4vmg.onrender.com/api/get-foods';
 const foodContainer = document.getElementById('food-container');
