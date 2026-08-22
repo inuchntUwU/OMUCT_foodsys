@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', fetchAndDisplayFoods);
 //ここから拡大表示
 
 // 食材データを取得するAPIのリンク（URL）
-const DATA_URL = 'https://food-system-backend-4vmg.onrender.com'; 
+const DATA_URL = 'https://food-system-backend-4vmg.onrender.com/api/get-foods'; 
 
 export default function FoodList() {
   const [foods, setFoods] = useState([]);
