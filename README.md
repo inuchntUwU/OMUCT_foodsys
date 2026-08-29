@@ -57,23 +57,3 @@ OMUCT_foodsys/
 │   └── style.css
 └── README.md
 ```
-
----
-
-## 💻 使い方・開発環境 (Getting Started)
-
-1. **リポジトリのクローン**
-   ```bash
-   git clone https://github.com/inuchntUwU/OMUCT_foodsys.git
-   cd OMUCT_foodsys
-   ```
-
-2. **ローカルサーバーの起動**
-   ES Modules やカメラ機能を使用するため、ローカルWebサーバー（例: Live Server や Python サーバー）で実行してください。
-   ```bash
-   # Python を使用する場合
-   python3 -m http.server 8000
-   ```
-
-3. **ブラウザでアクセス**
-   `http://localhost:8000/login.html` にアクセスして Google ログインを行ってください。
