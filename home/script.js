@@ -34,26 +34,3 @@ async function handleReset() {
         resetButton.textContent = originalText;
     }
 }
-
-// ログインせずにアクセスした場合はログイン画面にリダイレクト
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
-const firebaseConfig = {
-  // ここに自分のconfig
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-// ログイン状態の監視
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // ログインしている場合：そのままページを表示（ユーザー情報を画面に出したりする）
-    console.log("ログイン中:", user.email);
-  } else {
-    // 未ログインの場合：ログイン画面 (index.html) に強制送還！
-    alert("ログインが必要です");
-    window.location.href = "index.html"; 
-  }
-});
