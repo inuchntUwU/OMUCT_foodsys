@@ -8,11 +8,6 @@
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js" defer></script>
 </head>
-<select id="sort-select" class="sort-dropdown">
-  <option value="created">最新</option>
-  <option value="name">名前</option>
-  <option value="expiration">賞味期限</option>
-</select>
 <script type="module">
   import { watchAuthState } from "../auth.js"; // パスは階層に応じて調整してください
   watchAuthState(
@@ -21,6 +16,11 @@
   );
 </script>
 <body>
+    <select id="sort-select" class="sort-dropdown">
+      <option value="created">最新</option>
+      <option value="name">名前</option>
+      <option value="expiration">賞味期限</option>
+    </select>
     <header class="header">
         <div class="header-left">
             <div class="header-logo">
