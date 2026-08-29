@@ -34,7 +34,6 @@
 /*背景（グラデーション）*/
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: 	#004080; /* 食欲失わせる（？）色 */
     background: linear-gradient(135deg, #004080 0%, #80bfff 100%);
     color: #333;
     display: flex;
