@@ -7,14 +7,16 @@
     <link rel="icon" href="../home/eat it.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js" defer></script>
+
+    <!-- 💡 headタグ内にスクリプトを移動 -->
+    <script type="module">
+      import { watchAuthState } from "../auth.js";
+      watchAuthState(
+        (user, idToken) => { /* ログイン中はそのままページを表示 */ },
+        () => { window.location.href = "../login.html"; }
+      );
+    </script>
 </head>
-<script type="module">
-  import { watchAuthState } from "../auth.js"; // パスは階層に応じて調整してください
-  watchAuthState(
-    (user, idToken) => { /* ログイン中はそのままページを表示 */ },
-    () => { window.location.href = "../login.html"; } // 未ログインならログインへ強制移動
-  );
-</script>
 <body>
     <header class="header">
         <div class="header-left">
@@ -28,13 +30,17 @@
     </header>
     
     <main class="main-container">
-        <div class="title">今ある食材一覧</div>
-        
-        <select id="sort-select" class="sort-dropdown">
-          <option value="created">最新</option>
-          <option value="name">名前</option>
-          <option value="expiration">賞味期限</option>
-        </select>
+        <!-- 💡 タイトルと並び替えセレクトを横並びで表示するエリア -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 0 10px;">
+            <div class="title" style="margin: 0;">今ある食材一覧</div>
+            
+            <!-- 💡 確実に表示されるようスタイリングを付与したプルダウン -->
+            <select id="sort-select" class="sort-dropdown" style="display: inline-block; padding: 8px 12px; font-size: 14px; font-weight: bold; border: 2px solid #ccc; border-radius: 8px; background-color: #ffffff; color: #333; cursor: pointer;">
+                <option value="created">最新順</option>
+                <option value="name">名前順</option>
+                <option value="expiration">賞味期限順</option>
+            </select>
+        </div>
         
         <section class="food-list">
             <ul id="food-container" class="food-grid"></ul>
