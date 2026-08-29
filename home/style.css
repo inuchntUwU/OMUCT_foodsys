@@ -107,6 +107,135 @@ body {
     transform: translateY(-2px);
 }
 
+/* LINE連携ボタン（LINEグリーン） */
+.line-link-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    color: white;
+    background-color: #06C755;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.line-link-button:hover {
+    background-color: #05a948;
+    transform: translateY(-2px);
+}
+.line-link-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+.line-link-button:disabled {
+    background-color: #7fd9a6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* LINE連携モーダル */
+.line-modal-overlay[hidden] {
+    display: none;
+}
+.line-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+.line-modal {
+    position: relative;
+    background-color: #ffffff;
+    color: #333;
+    max-width: 360px;
+    width: 100%;
+    padding: 32px 24px 24px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.line-modal h3 {
+    margin-bottom: 16px;
+    font-size: 1.2rem;
+    color: #000;
+}
+.line-modal-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: #888;
+    cursor: pointer;
+}
+.line-step {
+    margin: 16px 0 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    text-align: left;
+}
+.line-add-friend-btn {
+    display: inline-block;
+    padding: 10px 24px;
+    background-color: #06C755;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+.line-code {
+    margin: 4px auto 8px;
+    padding: 12px;
+    background-color: #f2f4f7;
+    border-radius: 8px;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.3em;
+    font-family: 'Courier New', monospace;
+}
+.line-note {
+    font-size: 0.8rem;
+    color: #718096;
+    margin-bottom: 12px;
+}
+.line-check-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #004080;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
+}
+.line-check-btn:disabled {
+    background-color: #99b3cc;
+    cursor: not-allowed;
+}
+.line-link-done p:first-child {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+.line-link-error {
+    margin-top: 12px;
+    color: #c0392b;
+    font-size: 0.85rem;
+}
+
 /* リセットボタン（警告色のレッド） */
 .reset-button {
     display: flex;

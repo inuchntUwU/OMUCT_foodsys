@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js" defer></script>
+    <script type="module" src="script.js"></script>
 </head>
 <body class="body">
     <header class="header">
@@ -18,10 +18,40 @@
         <div class="home-buttons">
             <a href="../camera/index.html">📷 カメラで食材登録</a>
             <a href="../kitchen/index.html">🍽️️ キッチン（食材一覧）</a>
+            <!--LINE連携ボタン(jsでモーダルを開く)-->
+            <button id="line-link-button" class="line-link-button">💬 LINE通知を連携</button>
             <!--リセットボタン(jsでFETCHにリクエスト流す)-->
             <button id="reset-button" class="reset-button">⚠ リセット</button>
         </div>
     </section>
+
+    <!-- LINE連携モーダル -->
+    <div id="line-link-modal" class="line-modal-overlay" hidden>
+        <div class="line-modal">
+            <button id="line-modal-close" class="line-modal-close" aria-label="閉じる">×</button>
+            <h3>LINE通知の連携</h3>
+
+            <div id="line-link-steps">
+                <p class="line-step">① LINE公式アカウントを友だち追加</p>
+                <a id="line-add-friend" class="line-add-friend-btn" href="#" target="_blank" rel="noopener">友だち追加</a>
+
+                <p class="line-step">② トークで下の4桁コードを送信</p>
+                <div id="line-code" class="line-code">----</div>
+                <p class="line-note">
+                    送信したら「連携を確認」を押してください。<br>
+                    確認するたびにコードは新しくなります。<b>表示中の最新コード</b>を送信してください。
+                </p>
+                <button id="line-check" class="line-check-btn">連携を確認</button>
+            </div>
+
+            <div id="line-link-done" class="line-link-done" hidden>
+                <p>✅ LINE連携が完了しました！</p>
+                <p class="line-note">賞味期限が近づくとLINEに通知が届きます。</p>
+            </div>
+
+            <p id="line-link-error" class="line-link-error" hidden></p>
+        </div>
+    </div>
 </body>
 <footer class="footer">
     <p>&copy; 2026 Foodsystem. All rights reserved.</p>
