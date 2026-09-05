@@ -94,19 +94,19 @@ body {
 
 /* カメラボタン */
 .home-buttons a[href*="camera"] {
-    background-color: #00b4d8;
+    background-color: #0077b6;
 }
 .home-buttons a[href*="camera"]:hover {
-    background-color: #0096c7;
+    background-color: #0077B6;
     transform: translateY(-2px); /* ホバー時に少し浮くエフェクト */
 }
 
 /* キッチンボタン（温かみのあるオレンジ） */
 .home-buttons a[href*="kitchen"] {
-    background-color: #e67e22;
+    background-color: #e85d04;
 }
 .home-buttons a[href*="kitchen"]:hover {
-    background-color: #d35400;
+    background-color: #E85D04;
     transform: translateY(-2px);
 }
 
