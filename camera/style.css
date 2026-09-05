@@ -1,23 +1,77 @@
+* {
+    box-sizing: border-box;
+}
+
 .footer {
     margin-top: 20px;
     text-align: center;
-    color: #ca3838;
+    color: #ffffff;
 }
+
+.header {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+}
+
+/* ホームに戻るボタン */
+.home-back-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    background-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    text-decoration: none; 
+    border-radius: 20px; 
+    font-weight: bold;
+    font-size: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.4); 
+    transition: all 0.2s ease;
+}
+
+.home-back-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4); 
+    transform: translateY(-1px); 
+}
+
 .upload-section {
-    margin-top: 10px;
-    padding: 10px;
-    border: 10px solid #73b870;
+    margin-top: 90px; /* 💡 ヘッダーの高さ分、下にずらす */
+    padding: 20px;
+    border: 5px solid #ffffff;
     border-radius: 25px;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.90);
     text-align: center;
 }
+
 .html {
-    background-color: #95ffca;
-}
-.title {
-    text-align: center;
-    color: #fcfff9;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: #004080; /* 食欲失わせる（？）色 */
+    background: linear-gradient(135deg, #004080 0%, #80bfff 100%);
+    color: #333;
+    min-height: 100vh;
 }
 
 #video {

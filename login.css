@@ -1,0 +1,68 @@
+/* login.css
+   home/style.css を先に読み込んでいる前提(背景グラデーションなどは
+   home/style.css の body { ... } を流用)。ここではログインカード周りだけ定義。 */
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.login-card {
+    background-color: rgba(255, 255, 255, 0.7);
+    max-width: 420px;
+    width: 100%;
+    padding: 40px 30px;
+    border-radius: 20px;
+    border: 5px solid rgba(255, 255, 255, 0.4); /*枠*/
+    text-align: center;
+}
+
+.system-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1a2b4c;
+    margin-bottom: 10px;
+}
+
+.login-subtext {
+    color: #718096;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+.google-login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 18px;
+    background-color: #ffffff;
+    color: #4a5568;
+    border: 1px solid #dcdfe3;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.05rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.google-login-btn:hover {
+    background-color: #f5f6f7;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.12);
+}
+.google-login-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.google-icon {
+    width: 20px;
+    height: 20px;
+}

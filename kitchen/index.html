@@ -3,15 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>キッチン</title>
+    <title>eat it -キッチン</title>
+    <link rel="icon" href="../home/eat it.png" type="image/png">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <script type="module" src="script.js" defer></script>
+
+    <!-- 💡 headタグ内にスクリプトを移動 -->
+    <script type="module">
+      import { watchAuthState } from "../auth.js";
+      watchAuthState(
+        (user, idToken) => { /* ログイン中はそのままページを表示 */ },
+        () => { window.location.href = "../login.html"; }
+      );
+    </script>
 </head>
 <body>
-    <div class="title">今ある食材一覧</div>1
+    <header class="header">
+        <div class="header-left">
+            <div class="header-logo">
+                <img src="../home/eat it.png" alt="EAT IT" class="logo-img">
+            </div>
+            <div class="back-to-home">
+                <a href="../home/index.html" class="home-back-btn">🏠 ホームに戻る</a>
+            </div>
+        </div>
+    </header>
     
-    <section class="food-list">
-        <ul id="food-container" class="food-grid"></ul>
-    </section>
+    <main class="main-container">
+        <!-- 💡 タイトルと並び替えセレクトを横並びで表示するエリア -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 0 10px;">
+            <div class="title" style="margin: 0;">今ある食材一覧</div>
+            
+            <!-- 💡 確実に表示されるようスタイリングを付与したプルダウン -->
+            <select id="sort-select" class="sort-dropdown" style="display: inline-block; padding: 8px 12px; font-size: 14px; font-weight: bold; border: 2px solid #ccc; border-radius: 8px; background-color: #ffffff; color: #333; cursor: pointer;">
+                <option value="created">最新順</option>
+                <option value="name">名前順</option>
+                <option value="expiration">賞味期限順</option>
+            </select>
+        </div>
+        
+        <section class="food-list">
+            <ul id="food-container" class="food-grid"></ul>
+        </section>
+    </main>
 </body>
+<footer class="footer">
+  <p>&copy; 2026 Foodsystem. All rights reserved.</p>
+</footer>
 </html>

@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html class="html">
 <head>
-    <title>Foodsystem</title>
+    <title>eat it - カメラ</title>
     <meta charset="UTF-8">
     <meta name="language" content="ja">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../home/eat it.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body class="body">
-    <h1 class="title">Foodsystem</h1>
+    <h1></h1>
+    <header class="header">
+        <div class="header-left">
+            <div class="header-logo">
+                <img src="../home/eat it.png" alt="EAT IT" class="logo-img">
+            </div>
+            <div class="back-to-home">
+                <a href="../home/index.html" class="home-back-btn">🏠 ホームに戻る</a>
+            </div>
+        </div>
+    </header>
+
     <section class="upload-section">
         <h2>食材の情報を入力</h2>
         <p>写真を撮影して食材の重さと賞味期限を入力</p>
@@ -37,8 +49,13 @@
  
             <br><br>
  
-            <label for="expiryInput">賞味期限 (日数)：</label>
-            <input type="date" id="expiryInput" min="0" placeholder="例: 2026-8-31" required>
+            <label for="expiryInput">賞味期限 (日付)：</label>
+            <input type="date" id="expiryInput" required>
+ 
+            <br><br>
+ 
+            <label for="notifyDaysInput">通知タイミング (何日前に通知)：</label>
+            <input type="number" id="notifyDaysInput" min="0" placeholder="例: 3" value="3" required>
  
             <br><br>
 
@@ -46,8 +63,9 @@
         </form>
     </section>
 </body>
+    
 <footer class="footer">
     <p>&copy; 2026 Foodsystem. All rights reserved.</p>
 </footer>
-<script src="script.js"></script>
+<script type="module" src="script.js"></script>
 </html>

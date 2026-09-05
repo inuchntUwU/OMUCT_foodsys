@@ -1,0 +1,179 @@
+/* 全体のリセットと背景設定 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between; /* 左と右に振り分ける */
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.2); /* ✨ 背景色を再設定 */
+    backdrop-filter: blur(8px);
+    box-sizing: border-box;
+    z-index: 100; /* ✨ 他のカードの裏に隠れるのを防ぐ */
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    margin: 0; /* 右寄りの原因になる余計な余白を消す */
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+}
+
+/*背景（グラデーション）*/
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #004080 0%, #80bfff 100%);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* 選択肢の背景 */
+.upload-section {
+    background-color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+    width: 100%;
+    padding: 40px 20px;
+    border-radius: 20px;
+    border: 5px solid rgba(255, 255, 255, 0.4); /*枠*/
+    text-align: center;
+    margin-top:100px;
+}
+
+.upload-section h2 {
+    font-size: 1.5rem;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.upload-section p {
+    color: #718096;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+/* ボタンの配置とデザイン */
+.home-buttons {
+    display: flex;
+    flex-direction: column; /* スマホでも見やすいように縦並びをベースに */
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.home-buttons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.2s ease; /* なめらかなアニメーション */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* カメラボタン */
+.home-buttons a[href*="camera"] {
+    background-color: #00b4d8;
+}
+.home-buttons a[href*="camera"]:hover {
+    background-color: #0096c7;
+    transform: translateY(-2px); /* ホバー時に少し浮くエフェクト */
+}
+
+/* キッチンボタン（温かみのあるオレンジ） */
+.home-buttons a[href*="kitchen"] {
+    background-color: #e67e22;
+}
+.home-buttons a[href*="kitchen"]:hover {
+    background-color: #d35400;
+    transform: translateY(-2px);
+}
+
+/*LINE連携コード発行ボタン*/
+.line-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    color: white;
+    background-color: #06C755; /* LINE公式グリーン */
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.line-button:hover {
+    background-color: #05b34c; /* マウスを乗せたとき少し濃い緑に */
+    transform: translateY(-2px);
+}
+
+.line-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* リセットボタン（警告色のレッド） */
+.reset-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    color: white;
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.reset-button:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+.reset-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+.reset-button:disabled {
+    background-color: #e57368;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* フッター */
+.footer {
+    margin-top: auto;
+    padding-top: 40px;
+    font-size: 1rem;
+    color: #ffffff;
+    text-align: center;
+}
