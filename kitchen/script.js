@@ -2,7 +2,7 @@
 // ルート直下の auth.js を使う(ログインしていなければ ../login.html へ飛ばす)
 import { requireAuth, getIdToken } from "../auth.js";
 
-const API_URL = 'https://food-system-backend-4vmg.onrender.com/api/get-foods';
+const API_URL = 'https://food-system-backend-4vmg.onrender.com/api/food/get-foods';
 const foodContainer = document.getElementById('food-container');
 const sortSelect = document.getElementById('sort-select'); // 並び替え用セレクトボックス
 
