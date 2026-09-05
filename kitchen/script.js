@@ -1,4 +1,5 @@
 // kitchen/script.js
+//9月5日のときの確認
 // ルート直下の auth.js を使う(ログインしていなければ ../login.html へ飛ばす)
 import { requireAuth, getIdToken } from "../auth.js";
 
