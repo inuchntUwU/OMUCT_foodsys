@@ -29,8 +29,9 @@ async function fetchAndDisplayFoods(sortBy = 'created') {
 
         const idToken = await getIdToken();
 
-        // クエリパラメータ ?sort=... を付与してAPIリクエスト（バックエンドは req.query.sort を見る）
-        const response = await fetch(`${API_URL}?sort=${sortBy}`, {
+        // クエリパラメータ ?sort=... を付与してAPIリクエスト（並び替えはバックエンド側で実施）
+        const response = await fetch(`${API_URL}?sort=${encodeURIComponent(sortBy)}`, {
+            cache: 'no-store',
             headers: {
                 Authorization: `Bearer ${idToken}`,
             },
