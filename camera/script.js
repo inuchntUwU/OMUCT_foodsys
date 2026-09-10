@@ -91,7 +91,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         // decodedToken.uid を「誰がアップロードしたか」として使える
         const idToken = await getIdToken();
 
-        const response = await fetch('https://food-system-backend-4vmg.onrender.com/api/upload-food', {
+        const response = await fetch('https://food-system-backend-4vmg.onrender.com/api/food/upload-food', {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${idToken}`,

@@ -2,8 +2,12 @@
 // 9月10日の確認
 import { requireAuth, getIdToken } from "../auth.js";
 
+<<<<<<< HEAD
 const API_URL = 'https://food-system-backend-4vmg.onrender.com/api/get-foods';
 const DELETE_API_URL = 'https://food-system-backend-4vmg.onrender.com/api/delete-food'; // バックエンドの削除エンドポイント
+=======
+const API_URL = 'https://food-system-backend-4vmg.onrender.com/api/food/get-foods';
+>>>>>>> e8c01e7393a5056d119350c78632863ddf6461f9
 const foodContainer = document.getElementById('food-container');
 const sortSelect = document.getElementById('sort-select');
 
@@ -39,7 +43,7 @@ async function fetchAndDisplayFoods(sortBy = 'created') {
         });
 
         if (!response.ok) {
-            throw new Error('データの取得に失敗しました');
+            throw new Error(`データの取得に失敗しました (HTTP ${response.status})`);
         }
 
         const result = await response.json();

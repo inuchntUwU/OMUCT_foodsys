@@ -16,7 +16,7 @@ async function handleReset() {
 
     try {
         // バックエンドにリセットリクエストを送信（APIエンドポイントはバックエンドの仕様に合わせて調整してください）
-        const response = await fetch(`${BACKEND_URL}/api/reset`, {
+        const response = await fetch(`${BACKEND_URL}/api/food/reset`, {
             method: 'POST',
         });
 
