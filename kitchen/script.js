@@ -1,21 +1,21 @@
 // kitchen/script.js
-//9月5日のときの確認
-// ルート直下の auth.js を使う(ログインしていなければ ../login.html へ飛ばす)
+// 9月10日の確認
 import { requireAuth, getIdToken } from "../auth.js";
 
 const API_URL = 'https://food-system-backend-4vmg.onrender.com/api/get-foods';
+const DELETE_API_URL = 'https://food-system-backend-4vmg.onrender.com/api/delete-food'; // バックエンドの削除エンドポイント
 const foodContainer = document.getElementById('food-container');
-const sortSelect = document.getElementById('sort-select'); // 並び替え用セレクトボックス
+const sortSelect = document.getElementById('sort-select');
 
 let currentSort = 'created'; // 初期表示：追加された順
 
-// ログイン必須。ログイン済みなら一覧取得を開始
+// ログイン必須処理
 requireAuth((user) => {
     console.log("ログイン中:", user.email);
     fetchAndDisplayFoods(currentSort);
 }, "../login.html");
 
-// 並び替えセレクトボックスの変更イベント
+// 並び替えプルダウン切り替え
 if (sortSelect) {
     sortSelect.addEventListener('change', (e) => {
         currentSort = e.target.value;
@@ -23,15 +23,15 @@ if (sortSelect) {
     });
 }
 
-// バックエンドからデータを取得して画面に表示する関数（sortBy を指定可能）
+// 食材データ一覧の取得と表示
 async function fetchAndDisplayFoods(sortBy = 'created') {
     try {
         foodContainer.innerHTML = '<p class="status-message">読み込み中...</p>';
 
         const idToken = await getIdToken();
 
-        // クエリパラメータ ?sort=... を付与してAPIリクエスト（並び替えはバックエンド側で実施）
-        const response = await fetch(`${API_URL}?sort=${encodeURIComponent(sortBy)}`, {
+        // 💡 バックエンドの受取キー名に合わせて ?sortBy= を指定
+        const response = await fetch(`${API_URL}?sortBy=${encodeURIComponent(sortBy)}`, {
             cache: 'no-store',
             headers: {
                 Authorization: `Bearer ${idToken}`,
@@ -43,43 +43,15 @@ async function fetchAndDisplayFoods(sortBy = 'created') {
         }
 
         const result = await response.json();
-        
-        // コンテナを一旦空にする
         foodContainer.innerHTML = '';
 
-        // 送られてきたデータの「data」部分を取り出す
-        const foodList = result.data;
-
-        // もしデータが空っぽだった場合の処理
-        if (!foodList || foodList.length === 0) {
-            foodContainer.innerHTML = '<p class="empty-message">登録されている料理がありません。</p>';
-            return;
-        }
-
-        // 取得した料理データを1つずつループ処理して画面に流し込む
-        foodList.forEach(food => {
-            // 画像がない場合のデフォルト画像を設定（もし image_path が空なら、代わりの画像を表示）
-            const imageUrl = food.image_path || 'https://placedog.net/500/300';
-            
-            const cardHtml = `
-                <li class="food-card">
-                    <img src="${imageUrl}" loading="lazy" alt="${food.food_name || '料理画像'}">
-                    <h3>${food.food_name || '名前なし'}</h3>
-                </li>
-            `;
-            foodContainer.innerHTML += cardHtml;
         const foodList = result.data || result;
 
-        // コンテナを一旦クリア
-        foodContainer.innerHTML = '';
-
-        // データが空の場合
         if (!foodList || !Array.isArray(foodList) || foodList.length === 0) {
             foodContainer.innerHTML = '<p class="empty-message">登録されている食材がありません。</p>';
             return;
         }
 
-        // 取得した食材データを1つずつカード要素にして追加
         foodList.forEach(food => {
             foodContainer.appendChild(createFoodCard(food));
         });
@@ -90,11 +62,13 @@ async function fetchAndDisplayFoods(sortBy = 'created') {
     }
 }
 
-// 食材カードのDOM要素を作成する関数
+// 食材カードDOM要素の生成
 function createFoodCard(food) {
     const li = document.createElement('li');
     li.className = 'food-card';
 
+    // 💡 バックエンドの Food.findByIdAndDelete(id) に渡すID（_id）
+    const foodId = food._id || food.id;
     const imageUrl = food.image_path || 'https://placedog.net/500/300';
     const foodName = food.food_name || '名前なし';
     const weight = (food.weight !== null && food.weight !== undefined && food.weight !== '')
@@ -118,11 +92,17 @@ function createFoodCard(food) {
                     <span class="food-detail-label">賞味期限:</span>
                     <span class="food-detail-value expiry">${escapeHtml(expirationDate)}</span>
                 </div>
+                <!-- 削除ボタン -->
+                <div class="food-detail-actions" style="margin-top: 12px; text-align: right;">
+                    <button type="button" class="delete-btn" style="background-color: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer;">
+                        削除する
+                    </button>
+                </div>
             </div>
         </div>
     `;
 
-    // クリックで詳細の開閉トグル
+    // カードの開閉トグル
     li.addEventListener('click', () => {
         const isOpen = li.classList.toggle('is-open');
         const hint = li.querySelector('.expand-hint');
@@ -131,10 +111,51 @@ function createFoodCard(food) {
         }
     });
 
+    // 削除処理（バックエンドの req.params.id へ送る）
+    const deleteBtn = li.querySelector('.delete-btn');
+    if (deleteBtn) {
+        deleteBtn.addEventListener('click', async (e) => {
+            e.stopPropagation(); // 開閉イベントの連動を防止
+
+            if (!confirm(`「${foodName}」を削除してもよろしいですか？`)) {
+                return;
+            }
+
+            try {
+                const idToken = await getIdToken();
+                
+                // 💡 バックエンドの exports.deleteFood (req.params.id) に合わせてパス末尾にIDを付与
+                const response = await fetch(`${DELETE_API_URL}/${foodId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        Authorization: `Bearer ${idToken}`,
+                    },
+                });
+
+                const resData = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(resData.message || '削除処理に失敗しました');
+                }
+
+                // 成功したら画面上からカード要素を即時削除
+                li.remove();
+
+                if (foodContainer.children.length === 0) {
+                    foodContainer.innerHTML = '<p class="empty-message">登録されている食材がありません。</p>';
+                }
+
+            } catch (err) {
+                console.error('削除エラー:', err);
+                alert(`削除に失敗しました: ${err.message}`);
+            }
+        });
+    }
+
     return li;
 }
 
-// XSS防止用HTMLエスケープ関数
+// XSS対策用HTMLエスケープ
 function escapeHtml(str) {
     if (str === null || str === undefined) return '';
     return String(str)
