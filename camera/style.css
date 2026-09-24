@@ -70,7 +70,7 @@
 
 .html {
     background-color: #004080; /* 食欲失わせる（？）色 */
-    background: linear-gradient(135deg, #004080 0%, #80bfff 100%);
+    background: linear-gradient(135deg, #11998e, #38ef7d);
     color: #333;
     min-height: 100vh;
 }
