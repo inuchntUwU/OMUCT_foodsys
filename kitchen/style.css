@@ -222,3 +222,20 @@ body {
     color: #ffffff;
     text-align: center;
 }
+/* 食材一覧タイトルのスマホ表示調整 */
+.title {
+  font-size: 1.4rem !important;   /* スマホ用に文字サイズを調整 */
+  white-space: nowrap !important; /* 途中で改行させない */
+}
+
+/* プルダウン（最新順）が潰れないように設定 */
+.sort-dropdown {
+  flex-shrink: 0;
+}
+
+/* 幅が特に狭いスマホ（380px以下）向けの調整 */
+@media (max-width: 380px) {
+  .title {
+    font-size: 1.1rem !important;
+  }
+}
