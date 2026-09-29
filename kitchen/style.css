@@ -221,3 +221,37 @@ body {
     color: #ffffff;
     text-align: center;
 }
+/* タイトルと並び替えボタンを包む親容器 */
+.header-title-area {
+  display: flex;
+  justify-content: space-between; /* 両端に配置 */
+  align-items: center;          /* 上下中央揃え */
+  gap: 10px;                     /* 要素間の余白を確保 */
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+
+/* 「食材一覧」タイトルの調整 */
+.header-title-area h1,
+.header-title-area .title {
+  font-size: 1.5rem;             /* デフォルトよりサイズを抑える */
+  white-space: nowrap;           /* 勝手に途中で改行させない */
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* ドロップダウン（最新順）のサイズ調整 */
+.header-title-area select {
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  flex-shrink: 0;                /* ドロップダウンが潰れないように設定 */
+}
+
+/* 画面幅が特に狭いスマホ（横幅 380px 以下など）向けの調整 */
+@media (max-width: 380px) {
+  .header-title-area h1,
+  .header-title-area .title {
+    font-size: 1.2rem;           /* さらに小さく調整 */
+  }
+}
