@@ -37,7 +37,12 @@ body {
 .header-logo {
     display: flex;
     align-items: center;
+    gap:10px;
     margin: 0; /* 右寄りの原因になる余計な余白を消す */
+}
+
+.header-text {
+    font-size: 1.5rem;
 }
 
 .logo-img {
