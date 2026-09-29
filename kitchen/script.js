@@ -3,6 +3,7 @@
 import { requireAuth, getIdToken } from "../auth.js";
 
 const API_URL = 'https://food-system-backend-4vmg.onrender.com/api/food/get-foods';
+const DELETE_API_URL = 'https://food-system-backend-4vmg.onrender.com/api/food/delete-food'; // バックエンドの削除エンドポイント
 const foodContainer = document.getElementById('food-container');
 const sortSelect = document.getElementById('sort-select');
 
@@ -29,8 +30,8 @@ async function fetchAndDisplayFoods(sortBy = 'created') {
 
         const idToken = await getIdToken();
 
-        // 💡 バックエンドの受取キー名に合わせて ?sortBy= を指定
-        const response = await fetch(`${API_URL}?sortBy=${encodeURIComponent(sortBy)}`, {
+        // 💡 バックエンドの受取キー名に合わせて ?sort= を指定
+        const response = await fetch(`${API_URL}?sort=${encodeURIComponent(sortBy)}`, {
             cache: 'no-store',
             headers: {
                 Authorization: `Bearer ${idToken}`,
@@ -116,10 +117,16 @@ function createFoodCard(food) {
         deleteBtn.addEventListener('click', async (e) => {
             e.stopPropagation(); // 開閉イベントの連動を防止
 
+            if (!foodId) {
+                alert('IDが取得できないため削除できません');
+                return;
+            }
+
             if (!confirm(`「${foodName}」を削除してもよろしいですか？`)) {
                 return;
             }
 
+            deleteBtn.disabled = true; // 二重クリック防止
             try {
                 const idToken = await getIdToken();
                 
@@ -131,10 +138,11 @@ function createFoodCard(food) {
                     },
                 });
 
-                const resData = await response.json();
+                // 204（本文なし）やHTMLエラーでも落ちないようにする
+                const resData = await response.json().catch(() => ({}));
 
                 if (!response.ok) {
-                    throw new Error(resData.message || '削除処理に失敗しました');
+                    throw new Error(resData.message || `削除処理に失敗しました (HTTP ${response.status})`);
                 }
 
                 // 成功したら画面上からカード要素を即時削除
@@ -147,6 +155,8 @@ function createFoodCard(food) {
             } catch (err) {
                 console.error('削除エラー:', err);
                 alert(`削除に失敗しました: ${err.message}`);
+            } finally {
+                deleteBtn.disabled = false;
             }
         });
     }
