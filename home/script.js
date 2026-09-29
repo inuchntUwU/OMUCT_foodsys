@@ -5,8 +5,6 @@ const BACKEND_URL = 'https://food-system-backend-4vmg.onrender.com';
 
 const LINE_ADD_FRIEND_URL = 'https://lin.ee/trVOU9X';
 
-const resetButton = document.getElementById('reset-button');
-
 // LINE連携モーダル関連の要素
 const lineLinkButton = document.getElementById('line-link-button');
 const lineModal = document.getElementById('line-link-modal');
@@ -23,8 +21,6 @@ requireAuth((user) => {
     console.log("ログイン中:", user.email);
 }, "../login.html");
 
-resetButton.addEventListener('click', handleReset);
-
 lineLinkButton.addEventListener('click', openLineLink);
 lineModalClose.addEventListener('click', closeLineLink);
 lineCheckButton.addEventListener('click', handleLineCheck);
@@ -34,39 +30,6 @@ lineModal.addEventListener('click', (e) => {
         closeLineLink();
     }
 });
-
-
-async function handleReset() {
-    // 誤操作防止の確認
-    const confirmed = window.confirm('本当に食材データをすべてリセットしますか？この操作は元に戻せません。');
-    if (!confirmed) {
-        return;
-    }
-
-    resetButton.disabled = true;
-    const originalText = resetButton.textContent;
-    resetButton.textContent = 'リセット中...';
-
-    try {
-        // バックエンドにリセットリクエストを送信（APIエンドポイントはバックエンドの仕様に合わせて調整してください）
-        const response = await fetch(`${BACKEND_URL}/api/food/reset`, {
-            method: 'POST',
-        });
-
-        if (!response.ok) {
-            throw new Error('リセットに失敗しました');
-        }
-
-        alert('食材データをリセットしました。');
-
-    } catch (error) {
-        console.error('エラー:', error);
-        alert('リセットに失敗しました。時間をおいて再度お試しください。');
-    } finally {
-        resetButton.disabled = false;
-        resetButton.textContent = originalText;
-    }
-}
 
 
 // --- LINE連携 ---
