@@ -8,9 +8,9 @@
 /*背景（グラデーション）*/
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    /*background: linear-gradient(135deg, #11998e, #38ef7d);
-    color: #333; */
-    background-image: url("../home/yasai-frame1.png");
+    background: linear-gradient(135deg, #11998e, #38ef7d);
+    color: #333;
+    /* background-image: url("../home/yasai-frame1.png"); */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
