@@ -25,7 +25,7 @@ body {
     top: 0;
     left: 0;
     display: flex;
-    justify-content: space-between; /* 左と右に振り分ける */
+    /*justify-content: space-between; /* 左と右に振り分ける */
     align-items: center;
     padding: 10px 20px;
     background-color: rgba(255, 255, 255, 0.2); /* ✨ 背景色を再設定 */
