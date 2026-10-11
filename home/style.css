@@ -37,8 +37,6 @@ body {
 .header-logo {
     display: flex;
     align-items: center;
-    gap:15px;
-    margin: 0; /* 右寄りの原因になる余計な余白を消す */
 }
 
 .header-text {
@@ -49,6 +47,7 @@ body {
     border-radius: 12px;
     height: 40px;
     width: auto;
+    margin-right: 12px;
 }
 
 /* 選択肢の背景 */
