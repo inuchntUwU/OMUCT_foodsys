@@ -22,10 +22,10 @@
     z-index: 100;
 }
 
-/*.header-left {
+.header-left {
     display: flex;
     align-items: center;
-} */
+} 
 
 .header-logo {
     display: flex;
