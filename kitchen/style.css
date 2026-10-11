@@ -35,13 +35,17 @@
     align-items: center;
 }
 
+.header-text {
+    fontsize:1.5rem;
+}
+
 .logo-img {
     border-radius: 12px;
     height: 40px;
     width: auto;
 }
 
-/* ホームに戻るボタン */
+/* ホームに戻るボタン 
 .home-back-btn {
     display: inline-flex;
     align-items: center;
@@ -59,7 +63,7 @@
 .home-back-btn:hover {
     background-color: rgba(255, 255, 255, 0.4); 
     transform: translateY(-1px); 
-}
+} */
 
 /* 全体のリセットと背景色 */
 body {
