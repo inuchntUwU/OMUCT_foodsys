@@ -28,7 +28,7 @@ body {
     /*justify-content: space-between; /* 左と右に振り分ける */
     align-items: center;
     padding: 10px 20px;
-    background-color: rgba(255, 255, 255, 0.2); /* ✨ 背景色を再設定 */
+    background-color: rgba(255, 255, 255, 0.5); /* ✨ 背景色を再設定 */
     backdrop-filter: blur(8px);
     box-sizing: border-box;
     z-index: 100; /* ✨ 他のカードの裏に隠れるのを防ぐ */
